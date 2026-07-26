@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Aiden Sterling | Neo-Brutalist Portfolio</title>
+    <meta name="description"
+        content="Professional portfolio of Aiden Sterling - Full Stack Developer & UI/UX Designer. Built with Neo-Brutalist design systems.">
+
+    <!-- Tailwind CSS with Forms & Container Queries plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Lexend:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Custom style rules for specific Neo-Brutalist / Neumorphic effects -->
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .neumorphic-base {
+            box-shadow: 8px 8px 16px #D1D9E6, -8px -8px 16px #FFFFFF;
+        }
+
+        .neumorphic-inset {
+            box-shadow: inset 6px 6px 12px #D1D9E6, inset -6px -6px 12px #FFFFFF;
+        }
+
+        .brutalist-border {
+            border: 3px solid #191c1e;
+        }
+
+        .brutalist-shadow {
+            box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+        }
+
+        .brutalist-shadow-sm {
+            box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+        }
+
+        .hover-shadow-shift:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+        }
+
+        .active-shadow-shift:active {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+        }
+
+        .neo-card:hover {
+            box-shadow: 12px 12px 0px 0px #191c1e, 10px 10px 20px #D1D9E6;
+            transform: translate(-4px, -4px);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f7f9fc;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #191c1e;
+            border-radius: 4px;
+        }
+    </style>
+
+    <!-- Custom styles for PDF viewer modal -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Tailwind Configuration matching the user's templates -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#001355",
+                        "on-secondary-fixed": "#001355",
+                        "error": "#ba1a1a",
+                        "background": "#f7f9fc",
+                        "secondary-container": "#9fafff",
+                        "surface-container": "#eceef1",
+                        "inverse-surface": "#2d3133",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-container": "#2d5bff",
+                        "on-primary": "#ffffff",
+                        "outline": "#747688",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434656",
+                        "on-secondary": "#ffffff",
+                        "primary": "#0040df",
+                        "on-secondary-fixed-variant": "#30418a",
+                        "tertiary-container": "#c24100",
+                        "surface-bright": "#f7f9fc",
+                        "on-tertiary-fixed": "#380d00",
+                        "secondary": "#4959a3",
+                        "on-tertiary-fixed-variant": "#812900",
+                        "surface-tint": "#104af0",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "tertiary": "#993100",
+                        "secondary-fixed-dim": "#b8c3ff",
+                        "primary-fixed": "#dde1ff",
+                        "on-secondary-container": "#2e4088",
+                        "secondary-fixed": "#dde1ff",
+                        "surface-container-high": "#e6e8eb",
+                        "tertiary-fixed": "#ffdbcf",
+                        "on-primary-fixed-variant": "#0035bd",
+                        "surface-dim": "#d8dadd",
+                        "surface-variant": "#e0e3e6",
+                        "outline-variant": "#c4c5d9",
+                        "on-tertiary-container": "#ffece6",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff1f4",
+                        "surface-container-low": "#f2f4f7",
+                        "surface": "#f7f9fc",
+                        "inverse-primary": "#b8c3ff",
+                        "on-surface": "#191c1e",
+                        "on-primary-container": "#efefff",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-background": "#191c1e",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "16px",
+                        "xl": "24px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "64px",
+                        "container-padding": "24px",
+                        "base": "8px",
+                        "hard-shadow-offset": "6px",
+                        "gutter": "24px",
+                        "border-width": "3px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Lexend"],
+                        "label-md": ["Lexend"],
+                        "body-md": ["Lexend"],
+                        "headline-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["56px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "900" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-surface font-body-md min-h-screen custom-scrollbar overflow-x-hidden">
+
+    <!-- TopAppBar -->
+    <header
+        class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-padding h-20 bg-surface border-b-3 border-on-surface shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-primary text-2xl"
+                style="font-variation-settings: 'FILL' 1;">terminal</span>
+            <span
+                class="font-display-lg text-headline-lg-mobile tracking-tighter text-on-surface uppercase font-black">PORTFOLIO</span>
+        </div>
+        <div class="hidden md:flex gap-6 items-center">
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#hero">Home</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                href="#about">About</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                href="#education">Education</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                href="#experience">Experience</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                href="#skills">Skills</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                href="#certificates">Certificates</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                href="#projects">Projects</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                href="#patents">Patents</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                href="#research">Research</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                href="#contact">Contact</a>
+        </div>
+        <a class="material-symbols-outlined text-primary text-3xl hover:translate-y-[-2px] transition-all active:translate-y-[2px]"
+            aria-label="Profile Info" href="admin.html">account_circle</a>
+    </header>
+
+    <!-- Main Container -->
+    <main class="pt-32 pb-40 px-container-padding max-w-7xl mx-auto flex flex-col gap-24">
+
+        <!-- 1st Section: Main (Hero) Section -->
+        <section id="hero" class="mb-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 flex flex-col gap-6">
+                    <span
+                        class="bg-primary text-on-primary self-start font-label-md text-xs px-3 py-1 border-3 border-on-surface uppercase tracking-widest brutalist-shadow-sm">CREATIVE
+                        ENGINEER</span>
+                    <h1 class="font-display-lg text-display-lg uppercase text-on-surface">
+                        Hi, I'm <br /><span class="text-primary">Aiden Sterling</span>
+                    </h1>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        I build custom software solutions at the intersection of robust engineering architecture and
+                        modern digital interface designs.
+                    </p>
+                    <div class="flex gap-4">
+                        <a id="profile-cv-link" href="assets/documents/marksheet_post_graduation.pdf" target="_blank"
+                            class="pdf-link px-8 py-4 bg-primary text-on-primary font-label-md border-3 border-on-surface brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all text-center flex items-center justify-center gap-2"
+                            data-title="Aiden Sterling - CV/Resume">
+                            <span class="material-symbols-outlined text-sm font-bold">download</span>
+                            <span>DOWNLOAD CV</span>
+                        </a>
+                        <a href="#contact"
+                            class="px-8 py-4 bg-surface text-on-surface font-label-md border-3 border-on-surface brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all text-center">
+                            GET IN TOUCH
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 flex justify-center">
+                    <div
+                        class="w-[340px] h-[340px] neumorphic-base brutalist-border rounded-xl bg-surface p-base overflow-hidden relative group">
+                        <img id="profile-img" src="assets/profile_avatar.png" alt="Aiden Sterling Photo"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80'">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 py-2">
+            <div class="h-1 bg-on-surface flex-grow"></div>
+            <div class="h-6 w-6 border-3 border-on-surface rotate-45 bg-primary"></div>
+            <div class="h-1 bg-on-surface flex-grow"></div>
+        </div>
+
+        <!-- 2nd Section: About Us Section -->
+        <section id="about">
+            <div class="mb-12">
+                <div
+                    class="inline-block bg-primary text-on-primary px-4 py-1 mb-4 border-3 border-on-surface brutalist-shadow-sm font-label-md uppercase">
+                    WHO I AM
+                </div>
+                <h2 class="font-display-lg text-display-lg mb-4 text-on-surface">About <span
+                        class="text-primary">Us</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 flex flex-col gap-6">
+                    <h3 class="font-headline-lg text-headline-lg mb-2 text-on-surface">Fusing Industrial Rules and
+                        Modern Engineering</h3>
+                    <p class="font-body-lg text-on-surface-variant">
+                        I am a full stack developer and interface designer with 4 years of coding experience. I help
+                        teams design, build, and deploy digital assets with high-level code standards. My work
+                        emphasizes layout structures, clean database queries, and functional details.
+                    </p>
+                    <p class="font-body-md text-on-surface-variant">
+                        Whether engineering streaming dashboard charts, or setting up AWS micro-instances, I ensure a
+                        visual identity matches high coding standards.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-5 grid grid-cols-2 gap-6">
+                    <div class="p-6 bg-surface border-3 border-on-surface rounded-xl brutalist-shadow-sm text-center">
+                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">4+</span>
+                        <span class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Years
+                            Exp</span>
+                    </div>
+                    <div class="p-6 bg-surface border-3 border-on-surface rounded-xl brutalist-shadow-sm text-center">
+                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">24+</span>
+                        <span
+                            class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Completed</span>
+                    </div>
+                    <div class="p-6 bg-surface border-3 border-on-surface rounded-xl brutalist-shadow-sm text-center">
+                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">15</span>
+                        <span class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Happy
+                            Clients</span>
+                    </div>
+                    <div class="p-6 bg-surface border-3 border-on-surface rounded-xl brutalist-shadow-sm text-center">
+                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">99%</span>
+                        <span class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Success
+                            Rate</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 py-2">
+            <div class="h-1 bg-on-surface flex-grow"></div>
+            <div class="h-6 w-6 border-3 border-on-surface rotate-45 bg-primary"></div>
+            <div class="h-1 bg-on-surface flex-grow"></div>
+        </div>
+
+        <!-- 3rd Section: Education Section -->
+        <section id="education">
+            <div class="mb-12">
+                <div
+                    class="inline-block bg-primary text-on-primary px-4 py-1 mb-4 border-3 border-on-surface brutalist-shadow-sm font-label-md uppercase">
+                    ACADEMIC HISTORY
+                </div>
+                <h2 class="font-display-lg text-display-lg mb-4 text-on-surface">Education <span
+                        class="text-primary">Milestones</span></h2>
+                <p class="font-body-lg text-on-surface-variant max-w-2xl">
+                    Detailed tracking of formal training and graduate coursework, with fully verifiable documents and
+                    marksheets.
+                </p>
+            </div>
+
+            <div id="education-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Loaded Dynamically from MongoDB -->
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 py-2">
+            <div class="h-1 bg-on-surface flex-grow"></div>
+            <div class="h-6 w-6 border-3 border-on-surface rotate-45 bg-primary"></div>
+            <div class="h-1 bg-on-surface flex-grow"></div>
+        </div>
+
+        <!-- 4th Section: Experience Section -->
+        <section id="experience">
+            <div class="mb-12">
+                <div
+                    class="inline-block bg-primary text-on-primary px-4 py-1 mb-4 border-3 border-on-surface brutalist-shadow-sm font-label-md uppercase">
+                    CAREER HISTORY
+                </div>
+                <h2 class="font-display-lg text-display-lg mb-4 text-on-surface">Experience <span
+                        class="text-primary">Timeline</span></h2>
+                <p class="font-body-lg text-on-surface-variant max-w-2xl">
+                    Milestones along my professional software engineering career. Focussing on interface speed and clean
+                    logic.
+                </p>
+            </div>
+
+            <!-- Vertical Neo-Brutalist Timeline -->
+            <div id="experience-timeline" class="relative pl-8 border-l-4 border-on-surface flex flex-col gap-12 ml-4">
+                <!-- Loaded Dynamically from MongoDB -->
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 py-2">
+            <div class="h-1 bg-on-surface flex-grow"></div>
+            <div class="h-6 w-6 border-3 border-on-surface rotate-45 bg-primary"></div>
+            <div class="h-1 bg-on-surface flex-grow"></div>
+        </div>
+
+        <!-- 5th Section: Skills Section -->
+        <section id="skills">
+            <div class="mb-12">
+                <div
+                    class="inline-block bg-primary text-on-primary px-4 py-1 mb-4 border-3 border-on-surface brutalist-shadow-sm font-label-md uppercase">
+                    EXPERTISE &amp; TOOLS
+                </div>
+                <h2 class="font-display-lg text-display-lg mb-4 text-on-surface">Technical <span
+                        class="text-primary">Mastery</span></h2>
+                <p class="font-body-lg text-on-surface-variant max-w-2xl">
+                    A specialized set of creative and technical capabilities focused on high-performance digital
+                    experiences. Built with precision and aesthetic rigor.
+                </p>
+            </div>
+
+            <!-- Skills Categories Grid -->
+            <div id="skills-categories-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <!-- Dynamic skills categories grid will be injected here -->
+            </div>
+
+            <!-- toolkit sub-section -->
+            <div class="mb-16">
+                <h3 class="font-headline-lg text-headline-lg mb-8 text-on-surface flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-3xl font-bold">construction</span>
+                    The Toolkit
+                </h3>
+                <div id="toolkit-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Dynamic toolkit grid will be injected here -->
+                </div>
+            </div>
+
+            <!-- Asymmetric workspace summary details -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div
+                    class="lg:col-span-7 neumorphic-flat border-3 border-on-surface p-base brutal-shadow bg-surface-container-lowest h-96 relative group overflow-hidden rounded-xl">
+                    <div class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-80"
+                        style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=80')">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-on-surface/50 to-transparent z-10"></div>
+                    <div class="absolute bottom-8 left-8 z-20">
+                        <div
+                            class="bg-primary text-on-primary font-label-md px-4 py-2 border-3 border-on-surface brutalist-shadow-sm mb-2 uppercase inline-block">
+                            NOW AVAILABLE FOR</div>
+                        <h4 class="text-white font-display-lg text-headline-lg">Creative Engineering</h4>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 flex flex-col gap-6">
+                    <div class="border-l-4 border-primary pl-6 py-2">
+                        <p class="font-body-lg text-on-surface italic">
+                            "The intersection of brutalist grid rules and digital interface designs is where we solve
+                            modern brand interaction models."
+                        </p>
+                    </div>
+                    <p class="font-body-md text-on-surface-variant">
+                        I build tools that are as structured as concrete architectures. The focus lies in crafting
+                        performance-driven databases and responsive visual screens.
+                    </p>
+                    <a id="profile-resume-link" href="assets/documents/marksheet_post_graduation.pdf" target="_blank"
+                        class="pdf-link bg-primary text-on-primary font-label-md px-8 py-4 border-3 border-on-surface rounded-lg brutal-shadow hover-lift active-brutal-press transition-all uppercase self-start text-center"
+                        data-title="Academic Curriculum Vitae">
+                        View Resume
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 py-2">
+            <div class="h-1 bg-on-surface flex-grow"></div>
+            <div class="h-6 w-6 border-3 border-on-surface rotate-45 bg-primary"></div>
+            <div class="h-1 bg-on-surface flex-grow"></div>
+        </div>
+
+        <!-- 6th Section: Certificates Section -->
+        <section id="certificates">
+            <div class="mb-12 flex items-end gap-4">
+                <h2
+                    class="font-headline-lg-mobile text-headline-lg-mobile uppercase tracking-tighter brutalist-border bg-primary text-on-primary px-4 py-2 hard-shadow">
+                    Certificates
+                </h2>
+                <div class="flex-grow border-b-3 border-on-background mb-1"></div>
+            </div>
+
+            <div id="certificates-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                <!-- Loaded Dynamically from MongoDB -->
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 py-2">
+            <div class="h-1 bg-on-surface flex-grow"></div>
+            <div class="h-6 w-6 border-3 border-on-surface rotate-45 bg-primary"></div>
+            <div class="h-1 bg-on-surface flex-grow"></div>
+        </div>
+
+        <!-- 7th Section: Selected Projects Section -->
+        <section id="projects" class="group relative">
+            <div class="mb-12">
+                <h2 class="font-display-lg text-display-lg uppercase mb-4">Selected<br /><span
+                        class="text-primary">Projects</span></h2>
+                <div class="w-24 h-4 bg-on-surface"></div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projects-grid" class="flex flex-col gap-16">
+                <!-- Loaded Dynamically from MongoDB -->
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 py-2">
+            <div class="h-1 bg-on-surface flex-grow"></div>
+            <div class="h-6 w-6 border-3 border-on-surface rotate-45 bg-primary"></div>
+            <div class="h-1 bg-on-surface flex-grow"></div>
+        </div>
+
+        <!-- 8th Section: Patents Section -->
+        <section id="patents">
+            <div class="mb-12 flex items-end gap-4">
+                <h2
+                    class="font-headline-lg-mobile text-headline-lg-mobile uppercase tracking-tighter brutalist-border bg-primary text-on-primary px-4 py-2 hard-shadow">
+                    Patents
+                </h2>
+                <div class="flex-grow border-b-3 border-on-background mb-1"></div>
+            </div>
+
+            <div id="patents-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                <!-- Loaded Dynamically from MongoDB -->
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 py-2">
+            <div class="h-1 bg-on-surface flex-grow"></div>
+            <div class="h-6 w-6 border-3 border-on-surface rotate-45 bg-primary"></div>
+            <div class="h-1 bg-on-surface flex-grow"></div>
+        </div>
+
+        <!-- 9th Section: Research Papers Section -->
+        <section id="research">
+            <div class="mb-12 flex items-end gap-4">
+                <h2
+                    class="font-headline-lg-mobile text-headline-lg-mobile uppercase tracking-tighter brutalist-border bg-primary text-on-primary px-4 py-2 hard-shadow">
+                    Research Papers
+                </h2>
+                <div class="flex-grow border-b-3 border-on-background mb-1"></div>
+            </div>
+
+            <div id="research-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                <!-- Loaded Dynamically from MongoDB -->
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 py-2">
+            <div class="h-1 bg-on-surface flex-grow"></div>
+            <div class="h-6 w-6 border-3 border-on-surface rotate-45 bg-primary"></div>
+            <div class="h-1 bg-on-surface flex-grow"></div>
+        </div>
+
+        <!-- 8th Section: Contact Section -->
+        <section id="contact" class="mb-8">
+            <div class="mb-12 flex items-end gap-4">
+                <h2
+                    class="font-headline-lg-mobile text-headline-lg-mobile uppercase tracking-tighter brutalist-border bg-primary text-on-primary px-4 py-2 hard-shadow">
+                    Contact Me
+                </h2>
+                <div class="flex-grow border-b-3 border-on-background mb-1"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Info details -->
+                <div class="neo-card neumorphic-base brutalist-border bg-surface p-8 rounded-xl">
+                    <h3 class="font-headline-lg text-headline-lg-mobile mb-4">Let's build together</h3>
+                    <p class="font-body-md text-on-surface-variant mb-8">
+                        I am currently available for contract engineering, full-time roles, or consultations regarding
+                        user experience layouts and scalable web codebases.
+                    </p>
+
+                    <div class="flex flex-col gap-6">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 bg-primary text-on-primary border-3 border-on-surface flex items-center justify-center rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                <span class="material-symbols-outlined">mail</span>
+                            </div>
+                            <div>
+                                <span
+                                    class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest">EMAIL
+                                    ME</span>
+                                <a href="mailto:aiden.sterling@example.com"
+                                    class="font-body-md font-bold text-primary hover:underline">aiden.sterling@example.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 bg-primary text-on-primary border-3 border-on-surface flex items-center justify-center rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                <span class="material-symbols-outlined">call</span>
+                            </div>
+                            <div>
+                                <span
+                                    class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest">CALL
+                                    ME</span>
+                                <a href="tel:+15550199" class="font-body-md font-bold text-primary hover:underline">+1
+                                    (555) 0199</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social handles -->
+                    <div class="flex gap-4 mt-8">
+                        <a href="#"
+                            class="w-12 h-12 border-3 border-on-surface bg-surface text-on-surface flex items-center justify-center rounded-lg brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all"
+                            aria-label="GitHub">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 border-3 border-on-surface bg-surface text-on-surface flex items-center justify-center rounded-lg brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all"
+                            aria-label="LinkedIn">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 border-3 border-on-surface bg-surface text-on-surface flex items-center justify-center rounded-lg brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all"
+                            aria-label="Instagram">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M7.75 2h8.5C19.425 2 22 4.575 22 7.75v8.5C22 19.425 19.425 22 16.25 22h-8.5C4.575 22 2 19.425 2 16.25v-8.5C2 4.575 4.575 2 7.75 2zm0 2C5.679 4 4 5.679 4 7.75v8.5C4 18.321 5.679 20 7.75 20h8.5C18.321 20 20 18.321 20 16.25v-8.5C20 5.679 18.321 4 16.25 4h-8.5zm9.75 1.5a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z" />
+                            </svg> </a>
+                    </div>
+                </div>
+
+                <!-- Input form -->
+                <form class="neo-card neumorphic-base brutalist-border bg-surface p-8 rounded-xl flex flex-col gap-6"
+                    id="contact-form">
+                    <h3 class="font-headline-lg text-headline-lg-mobile text-on-surface">Send a Message</h3>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="name" class="font-label-md text-xs uppercase tracking-widest">Your Name</label>
+                        <input type="text" id="name" name="name" required
+                            class="w-full px-4 py-3 border-3 border-on-surface bg-background text-on-surface focus:ring-0 focus:border-primary rounded-lg font-body-md"
+                            placeholder="Enter your name">
+                        <span class="text-xs text-error font-semibold hidden" id="name-error">Name is required.</span>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="email" class="font-label-md text-xs uppercase tracking-widest">Email Address</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-3 border-3 border-on-surface bg-background text-on-surface focus:ring-0 focus:border-primary rounded-lg font-body-md"
+                            placeholder="Enter your email">
+                        <span class="text-xs text-error font-semibold hidden" id="email-error">Enter a valid
+                            email.</span>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="subject" class="font-label-md text-xs uppercase tracking-widest">Subject</label>
+                        <input type="text" id="subject" name="subject" required
+                            class="w-full px-4 py-3 border-3 border-on-surface bg-background text-on-surface focus:ring-0 focus:border-primary rounded-lg font-body-md"
+                            placeholder="Enter topic">
+                        <span class="text-xs text-error font-semibold hidden" id="subject-error">Subject is
+                            required.</span>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="message" class="font-label-md text-xs uppercase tracking-widest">Message</label>
+                        <textarea id="message" name="message" required rows="4"
+                            class="w-full px-4 py-3 border-3 border-on-surface bg-background text-on-surface focus:ring-0 focus:border-primary rounded-lg font-body-md resize-none"
+                            placeholder="Write message details..."></textarea>
+                        <span class="text-xs text-error font-semibold hidden" id="message-error">Message cannot be
+                            empty.</span>
+                    </div>
+
+                    <button type="submit" id="submit-btn"
+                        class="w-full py-4 bg-primary text-on-primary font-label-md border-3 border-on-surface brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all flex justify-center items-center gap-2">
+                        <span>SEND MESSAGE</span>
+                        <svg class="w-5 h-5 send-icon" fill="none" stroke="currentColor" stroke-width="2.5"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                        </svg>
+                        <svg class="w-5 h-5 spinner-icon animate-spin hidden" fill="none" stroke="currentColor"
+                            stroke-width="2.5" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Notification Toast -->
+        <div id="toast"
+            class="toast fixed bottom-8 right-8 bg-surface border-3 border-on-surface p-4 rounded-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hidden z-50">
+            <span class="font-label-md text-primary font-bold">MESSAGE SENT SUCCESSFULLY!</span>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+        class="w-full py-section-gap px-container-padding flex flex-col md:flex-row justify-between items-center gap-base bg-surface-container-highest border-t-4 border-on-surface mt-24 pb-32">
+        <div class="flex flex-col items-center md:items-start gap-4">
+            <span class="font-display-lg text-on-surface text-2xl tracking-tighter uppercase font-black">Portfolio
+                Core</span>
+            <span class="font-body-md text-on-surface-variant">© 2026 Aiden Sterling. Built with Neo-Brutalism.</span>
+        </div>
+        <div class="flex gap-8">
+            <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors hover:underline"
+                href="#">Dribbble</a>
+            <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors hover:underline"
+                href="#">GitHub</a>
+            <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors hover:underline"
+                href="#">LinkedIn</a>
+        </div>
+    </footer>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+        class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface border-t-3 border-on-surface shadow-[0px_-8px_16px_#D1D9E6]">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-95 transition-transform"
+            href="#about">
+            <span class="material-symbols-outlined">person_pin</span>
+            <span class="font-label-md text-[10px]">About</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-95 transition-transform"
+            href="#education">
+            <span class="material-symbols-outlined">school</span>
+            <span class="font-label-md text-[10px]">Education</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-95 transition-transform"
+            href="#skills">
+            <span class="material-symbols-outlined">terminal</span>
+            <span class="font-label-md text-[10px]">Skills</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-95 transition-transform"
+            href="#projects">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span class="font-label-md text-[10px]">Work</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-95 transition-transform"
+            href="#contact">
+            <span class="material-symbols-outlined">mail</span>
+            <span class="font-label-md text-[10px]">Contact</span>
+        </a>
+    </nav>
+
+    <!-- PDF Viewer Modal -->
+    <div id="pdf-modal" class="pdf-modal hidden" aria-hidden="true">
+        <div class="pdf-modal-overlay"></div>
+        <div class="pdf-modal-content glass animate-modal">
+            <div class="pdf-modal-header">
+                <div class="pdf-modal-title-wrapper">
+                    <svg class="pdf-doc-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <h3 id="pdf-modal-title">Document Viewer</h3>
+                </div>
+                <button id="pdf-modal-close" class="pdf-modal-close" aria-label="Close document">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="pdf-modal-body">
+                <iframe id="pdf-iframe" src="" title="Document Viewer"></iframe>
+            </div>
+            <div class="pdf-modal-footer">
+                <a id="pdf-modal-external" href="#" target="_blank" class="btn btn-secondary">
+                    <span>Open in New Tab</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>

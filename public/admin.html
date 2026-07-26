@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Portfolio Admin Dashboard</title>
+    
+    <!-- Tailwind CSS with Forms plugin -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Lexend:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Custom styling matching portfolio core -->
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .brutalist-border {
+            border: 3px solid #191c1e;
+        }
+        .brutalist-shadow {
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+        }
+        .brutalist-shadow-sm {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+        .hover-shadow-shift:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+        }
+        .active-shadow-shift:active {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f7f9fc;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #191c1e;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: "#f7f9fc",
+                        primary: "#0040df",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#434656",
+                        "surface": "#ffffff",
+                        "surface-container": "#eceef1",
+                        "surface-container-high": "#e6e8eb",
+                        error: "#ba1a1a",
+                        success: "#15803d"
+                    },
+                    fontFamily: {
+                        display: ["Montserrat"],
+                        body: ["Lexend"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen custom-scrollbar pb-16">
+
+    <!-- Auth Protection Page Overlay -->
+    <div id="auth-overlay" class="fixed inset-0 z-50 bg-background flex items-center justify-center p-6">
+        <div class="w-full max-w-md bg-surface brutalist-border brutalist-shadow p-8 rounded-xl">
+            <div class="flex items-center gap-2 mb-6 justify-center">
+                <span class="material-symbols-outlined text-primary text-3xl font-bold">lock</span>
+                <span class="font-display text-2xl font-black tracking-tighter uppercase">ADMIN PORTAL</span>
+            </div>
+            
+            <form id="auth-form" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                    <label for="admin-password" class="font-semibold text-sm uppercase tracking-wider text-on-surface-variant">Enter Access Password</label>
+                    <input type="password" id="admin-password" required class="w-full px-4 py-3 border-3 border-on-surface bg-background focus:ring-0 focus:border-primary rounded-lg font-body" placeholder="••••••••">
+                    <span id="auth-error" class="text-xs text-error font-semibold hidden">Password incorrect. Please try again.</span>
+                </div>
+                <button type="submit" class="w-full py-3 bg-primary text-on-primary font-bold border-3 border-on-surface brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all uppercase">
+                    UNLOCK DASHBOARD
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Top Admin Header -->
+    <header class="w-full border-b-3 border-on-surface bg-surface h-20 px-6 flex justify-between items-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sticky top-0 z-40">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-primary text-2xl font-bold">dashboard</span>
+            <span class="font-display text-xl font-black uppercase tracking-tighter">PORTFOLIO DATABASE CONTROL</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="px-4 py-2 border-3 border-on-surface bg-background font-bold text-xs uppercase hover:bg-surface-container transition-colors rounded-lg flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm font-bold">open_in_new</span>
+                <span>View Portfolio</span>
+            </a>
+            <button id="logout-btn" class="px-4 py-2 border-3 border-on-surface bg-error text-white font-bold text-xs uppercase hover:opacity-90 transition-opacity rounded-lg">
+                LOGOUT
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Grid Content -->
+    <main class="max-w-7xl mx-auto px-6 mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="lg:col-span-3 flex flex-col gap-3">
+            <button data-tab="projects" class="tab-btn w-full px-5 py-4 border-3 border-on-surface bg-primary text-on-primary font-bold text-left rounded-xl flex items-center justify-between brutalist-shadow-sm hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:shadow-none">
+                <span class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">grid_view</span>
+                    <span>Projects</span>
+                </span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+            <button data-tab="education" class="tab-btn w-full px-5 py-4 border-3 border-on-surface bg-surface text-on-surface hover:bg-surface-container font-bold text-left rounded-xl flex items-center justify-between brutalist-shadow-sm hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:shadow-none">
+                <span class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">school</span>
+                    <span>Education</span>
+                </span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+            <button data-tab="experience" class="tab-btn w-full px-5 py-4 border-3 border-on-surface bg-surface text-on-surface hover:bg-surface-container font-bold text-left rounded-xl flex items-center justify-between brutalist-shadow-sm hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:shadow-none">
+                <span class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">history_edu</span>
+                    <span>Experience</span>
+                </span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+            <button data-tab="certificates" class="tab-btn w-full px-5 py-4 border-3 border-on-surface bg-surface text-on-surface hover:bg-surface-container font-bold text-left rounded-xl flex items-center justify-between brutalist-shadow-sm hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:shadow-none">
+                <span class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">verified_user</span>
+                    <span>Certificates</span>
+                </span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+            <button data-tab="patents" class="tab-btn w-full px-5 py-4 border-3 border-on-surface bg-surface text-on-surface hover:bg-surface-container font-bold text-left rounded-xl flex items-center justify-between brutalist-shadow-sm hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:shadow-none">
+                <span class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">description</span>
+                    <span>Patents</span>
+                </span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+            <button data-tab="research" class="tab-btn w-full px-5 py-4 border-3 border-on-surface bg-surface text-on-surface hover:bg-surface-container font-bold text-left rounded-xl flex items-center justify-between brutalist-shadow-sm hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:shadow-none">
+                <span class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">menu_book</span>
+                    <span>Research Papers</span>
+                </span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+            <button data-tab="skills" class="tab-btn w-full px-5 py-4 border-3 border-on-surface bg-surface text-on-surface hover:bg-surface-container font-bold text-left rounded-xl flex items-center justify-between brutalist-shadow-sm hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:shadow-none">
+                <span class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">construction</span>
+                    <span>Skills</span>
+                </span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+            <button data-tab="profile" class="tab-btn w-full px-5 py-4 border-3 border-on-surface bg-surface text-on-surface hover:bg-surface-container font-bold text-left rounded-xl flex items-center justify-between brutalist-shadow-sm hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:shadow-none">
+                <span class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span>Profile &amp; Assets</span>
+                </span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+            <button data-tab="messages" class="tab-btn w-full px-5 py-4 border-3 border-on-surface bg-surface text-on-surface hover:bg-surface-container font-bold text-left rounded-xl flex items-center justify-between brutalist-shadow-sm hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:shadow-none relative">
+                <span class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">mail</span>
+                    <span>Messages</span>
+                </span>
+                <span class="flex items-center gap-2">
+                    <span id="unread-count" class="hidden bg-error text-white text-[10px] px-2 py-0.5 font-bold uppercase rounded-full">New</span>
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </span>
+            </button>
+        </nav>
+
+        <!-- Tab Workspaces -->
+        <section class="lg:col-span-9 bg-surface brutalist-border brutalist-shadow rounded-xl p-8 min-h-[500px]">
+            
+            <!-- Table Header Area -->
+            <div class="flex justify-between items-center mb-8 border-b-3 border-on-surface pb-4">
+                <h2 id="workspace-title" class="font-display text-2xl font-black uppercase tracking-tighter">Projects</h2>
+                <button id="add-item-btn" class="px-5 py-3 border-3 border-on-surface bg-primary text-on-primary font-bold text-xs uppercase hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all brutalist-shadow-sm flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm font-bold">add</span>
+                    <span id="add-btn-text">Add Project</span>
+                </button>
+            </div>
+
+            <!-- List Grid View -->
+            <div id="records-list" class="flex flex-col gap-6">
+                <!-- Javascript will load tables / card lists here -->
+            </div>
+            
+            <!-- Empty State Helper -->
+            <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center gap-4 text-on-surface-variant">
+                <span class="material-symbols-outlined text-6xl opacity-45">folder_open</span>
+                <p class="font-semibold text-lg">No records found. Click the button above to create one!</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Form overlay -->
+    <div id="form-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 hidden">
+        <div class="w-full max-w-2xl bg-surface brutalist-border brutalist-shadow rounded-xl flex flex-col overflow-hidden max-h-[85vh]">
+            <div class="flex justify-between items-center p-6 border-b-3 border-on-surface bg-surface-container">
+                <h3 id="modal-form-title" class="font-display text-lg font-black uppercase tracking-tighter">Add New Project</h3>
+                <button id="close-modal-btn" class="w-10 h-10 border-3 border-on-surface rounded-full flex items-center justify-center bg-surface hover:bg-error hover:text-white transition-colors" aria-label="Close form">
+                    <span class="material-symbols-outlined font-bold">close</span>
+                </button>
+            </div>
+            
+            <form id="record-form" class="p-8 flex flex-col gap-6 overflow-y-auto custom-scrollbar">
+                <input type="hidden" id="edit-id" name="id">
+                
+                <!-- Dynamic Form Fields Container -->
+                <div id="form-fields-wrapper" class="flex flex-col gap-5">
+                    <!-- Javascript inserts matching input sets here -->
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="flex justify-end gap-4 border-t-3 border-on-surface pt-6 mt-4">
+                    <button type="button" id="cancel-form-btn" class="px-6 py-3 border-3 border-on-surface bg-background font-bold text-xs uppercase hover:bg-surface-container transition-colors rounded-lg">
+                        CANCEL
+                    </button>
+                    <button type="submit" class="px-8 py-3 bg-primary text-on-primary font-bold text-xs uppercase border-3 border-on-surface brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all">
+                        SAVE DATA
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="action-toast" class="fixed bottom-8 right-8 bg-surface border-3 border-on-surface p-4 rounded-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hidden z-50">
+        <span id="toast-text" class="font-bold text-success">DATA SAVED SUCCESSFULLY!</span>
+    </div>
+
+    <!-- Loader Screen -->
+    <div id="loader-overlay" class="fixed inset-0 z-50 bg-background/80 flex items-center justify-center hidden">
+        <svg class="w-12 h-12 text-primary animate-spin" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+    </div>
+
+    <!-- Custom admin dashboard controls -->
+    <script src="admin.js"></script>
+</body>
+</html>

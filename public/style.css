@@ -1,0 +1,135 @@
+/* ==========================================================================
+   NEO-BRUTALIST TAILWIND CUSTOM STYLES
+   ========================================================================== */
+
+/* PDF Viewer Modal Container Overlay */
+.pdf-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pdf-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(25, 28, 30, 0.7);
+    backdrop-filter: blur(8px);
+}
+
+.pdf-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 85vh;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 10;
+    border: 3px solid #191c1e;
+    box-shadow: 10px 10px 0px 0px rgba(0,0,0,1);
+}
+
+.pdf-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 3px solid #191c1e;
+    background: #ffffff;
+}
+
+.pdf-modal-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pdf-modal-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid #191c1e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.pdf-modal-close:hover {
+    background: #0040df;
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+.pdf-modal-body {
+    flex-grow: 1;
+    background: #d8dadd;
+    position: relative;
+}
+
+#pdf-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #d8dadd;
+}
+
+.pdf-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 24px;
+    border-top: 3px solid #191c1e;
+    background: #ffffff;
+}
+
+/* Modal Scale & Fade Animations */
+.animate-modal {
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pdf-modal:not(.hidden) .animate-modal {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.pdf-modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Tab display toggles override specificity */
+.tab-content {
+    display: none !important;
+}
+
+.tab-content.active {
+    display: block !important;
+}
+
+/* Mobile responsive fixes */
+@media screen and (max-width: 768px) {
+    .pdf-modal {
+        padding: 12px;
+    }
+    
+    .pdf-modal-content {
+        height: 90vh;
+        border-radius: 16px;
+    }
+}
