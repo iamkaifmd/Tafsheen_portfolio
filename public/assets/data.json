@@ -126,26 +126,6 @@
       "order": 3
     }
   ],
-  "patents": [
-    {
-      "title": "System and Method for Adaptive Image Compression",
-      "institution": "Indian Patent Office",
-      "period": "2025",
-      "verifyUrl": "assets/documents/certificate_aws.pdf",
-      "category": "Software",
-      "order": 1
-    }
-  ],
-  "research": [
-    {
-      "title": "Deep Learning for Real-Time Semantic Segmentation",
-      "institution": "IEEE Journal of Computer Vision",
-      "period": "2024",
-      "verifyUrl": "assets/documents/certificate_meta.pdf",
-      "category": "AI/ML",
-      "order": 1
-    }
-  ],
   "skills": [
     {
       "name": "UI/UX Design",
@@ -222,6 +202,26 @@
       "type": "tool",
       "iconColor": "#61DAFB",
       "order": 8
+    }
+  ],
+  "patents": [
+    {
+      "title": "System and Method for Adaptive Image Compression",
+      "institution": "Indian Patent Office",
+      "period": "2025",
+      "verifyUrl": "assets/documents/certificate_aws.pdf",
+      "category": "Software",
+      "order": 1
+    }
+  ],
+  "research": [
+    {
+      "title": "Deep Learning for Real-Time Semantic Segmentation",
+      "institution": "IEEE Journal of Computer Vision",
+      "period": "2024",
+      "verifyUrl": "assets/documents/certificate_meta.pdf",
+      "category": "AI/ML",
+      "order": 1
     }
   ],
   "profile": {
