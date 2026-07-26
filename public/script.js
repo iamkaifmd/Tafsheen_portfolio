@@ -169,8 +169,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const pdfModalOverlay = document.querySelector('.pdf-modal-overlay');
     const pdfModalExternal = document.getElementById('pdf-modal-external');
 
+    function base64ToBlobUrl(base64Data) {
+        try {
+            const parts = base64Data.split(';base64,');
+            const contentType = parts[0].split(':')[1];
+            const raw = window.atob(parts[1]);
+            const rawLength = raw.length;
+            const uInt8Array = new Uint8Array(rawLength);
+            for (let i = 0; i < rawLength; ++i) {
+                uInt8Array[i] = raw.charCodeAt(i);
+            }
+            const blob = new Blob([uInt8Array], { type: contentType });
+            return URL.createObjectURL(blob);
+        } catch (e) {
+            console.error('Failed to convert base64 to blob:', e);
+            return base64Data;
+        }
+    }
+
     function openPdfModal(e) {
-        const url = this.getAttribute('href');
+        let url = this.getAttribute('href');
         const title = this.getAttribute('data-title') || 'Document Viewer';
 
         // Workaround checks: local file file:// execution or screen ≤ 768px (mobile viewer constraints)
@@ -179,6 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         e.preventDefault();
+
+        // Convert base64 data URIs to Blob URLs to bypass browser iframe security blocks
+        if (url.startsWith('data:application/pdf;base64,')) {
+            url = base64ToBlobUrl(url);
+        }
+
         if (pdfIframe && pdfModal) {
             pdfIframe.src = url;
             if (pdfModalTitle) pdfModalTitle.textContent = title;
