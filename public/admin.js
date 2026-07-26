@@ -252,9 +252,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadStandardRecords = async () => {
         showLoader(true);
         try {
-            // Load content
-            const res = await fetch('/api/content');
-            const data = await res.json();
+            // Load content with fallback to static JSON
+            let data;
+            try {
+                const res = await fetch('/api/content');
+                if (!res.ok) throw new Error(`API returned ${res.status}`);
+                data = await res.json();
+            } catch (apiErr) {
+                console.warn('Admin API failed, trying static fallback:', apiErr);
+                const res = await fetch('assets/data.json');
+                data = await res.json();
+            }
             showLoader(false);
 
             const list = data[activeTab] || [];
@@ -311,8 +319,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadProfileSettings = async () => {
         showLoader(true);
         try {
-            const res = await fetch('/api/content');
-            const data = await res.json();
+            // Load profile with fallback to static JSON
+            let data;
+            try {
+                const res = await fetch('/api/content');
+                if (!res.ok) throw new Error(`API returned ${res.status}`);
+                data = await res.json();
+            } catch (apiErr) {
+                console.warn('Admin Profile API failed, trying static fallback:', apiErr);
+                const res = await fetch('assets/data.json');
+                data = await res.json();
+            }
             showLoader(false);
 
             const profile = data.profile || {
