@@ -85,6 +85,7 @@ const PatentSchema = new mongoose.Schema({
     period: { type: String, required: true },
     verifyUrl: { type: String, required: true },
     category: { type: String, default: 'Patent' },
+    imageUrl: { type: String },
     order: { type: Number, default: 0 }
 });
 
@@ -94,6 +95,7 @@ const ResearchPaperSchema = new mongoose.Schema({
     period: { type: String, required: true },
     verifyUrl: { type: String, required: true },
     category: { type: String, default: 'Research' },
+    imageUrl: { type: String },
     order: { type: Number, default: 0 }
 });
 
@@ -121,6 +123,15 @@ const ProfileSchema = new mongoose.Schema({
     cvUrl: { type: String, default: 'assets/documents/marksheet_post_graduation.pdf' }
 });
 
+const InternshipSchema = new mongoose.Schema({
+    company: { type: String, required: true },
+    role: { type: String, required: true },
+    period: { type: String, required: true },
+    description: { type: String, required: true },
+    certificateUrl: { type: String, required: true },
+    order: { type: Number, default: 0 }
+});
+
 const Project = mongoose.model('Project', ProjectSchema);
 const Education = mongoose.model('Education', EducationSchema);
 const Experience = mongoose.model('Experience', ExperienceSchema);
@@ -130,6 +141,7 @@ const ResearchPaper = mongoose.model('ResearchPaper', ResearchPaperSchema);
 const ContactMessage = mongoose.model('ContactMessage', ContactMessageSchema);
 const Skill = mongoose.model('Skill', SkillSchema);
 const Profile = mongoose.model('Profile', ProfileSchema);
+const Internship = mongoose.model('Internship', InternshipSchema);
 
 const models = {
     projects: Project,
@@ -138,7 +150,8 @@ const models = {
     certificates: Certificate,
     skills: Skill,
     patents: Patent,
-    research: ResearchPaper
+    research: ResearchPaper,
+    internships: Internship
 };
 
 // --------------------------------------------------
@@ -160,21 +173,32 @@ function requireAdmin(req, res, next) {
 // Single aggregate fetch endpoint for initial page render optimization
 app.get('/api/content', async (req, res) => {
     try {
-        const [projects, education, experience, certificates, skills, patents, research] = await Promise.all([
+        if (mongoose.connection.readyState !== 1) {
+            console.log('MongoDB is not connected. Serving content from static data.json fallback...');
+            const dataPath = path.join(__dirname, 'public', 'assets', 'data.json');
+            if (fs.existsSync(dataPath)) {
+                const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+                return res.json(data);
+            }
+            throw new Error('Database is offline and no static data.json fallback is available.');
+        }
+
+        const [projects, education, experience, certificates, skills, patents, research, internships] = await Promise.all([
             Project.find().sort({ order: 1 }),
             Education.find().sort({ order: 1 }),
             Experience.find().sort({ order: 1 }),
             Certificate.find().sort({ order: 1 }),
             Skill.find().sort({ order: 1 }),
             Patent.find().sort({ order: 1 }),
-            ResearchPaper.find().sort({ order: 1 })
+            ResearchPaper.find().sort({ order: 1 }),
+            Internship.find().sort({ order: 1 })
         ]);
         let profile = await Profile.findOne();
         if (!profile) {
             profile = new Profile();
             await profile.save();
         }
-        res.json({ projects, education, experience, certificates, skills, patents, research, profile });
+        res.json({ projects, education, experience, certificates, skills, patents, research, profile, internships });
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch content data', details: err.message });
     }

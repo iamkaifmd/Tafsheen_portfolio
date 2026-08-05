@@ -47,6 +47,7 @@ const PatentSchema = new mongoose.Schema({
     period: String,
     verifyUrl: String,
     category: String,
+    imageUrl: String,
     order: Number
 });
 
@@ -56,6 +57,7 @@ const ResearchPaperSchema = new mongoose.Schema({
     period: String,
     verifyUrl: String,
     category: String,
+    imageUrl: String,
     order: Number
 });
 
@@ -75,6 +77,15 @@ const ProfileSchema = new mongoose.Schema({
     cvUrl: String
 });
 
+const InternshipSchema = new mongoose.Schema({
+    company: String,
+    role: String,
+    period: String,
+    description: String,
+    certificateUrl: String,
+    order: Number
+});
+
 const Project = mongoose.model('Project', ProjectSchema);
 const Education = mongoose.model('Education', EducationSchema);
 const Experience = mongoose.model('Experience', ExperienceSchema);
@@ -83,221 +94,366 @@ const Patent = mongoose.model('Patent', PatentSchema);
 const ResearchPaper = mongoose.model('ResearchPaper', ResearchPaperSchema);
 const Skill = mongoose.model('Skill', SkillSchema);
 const Profile = mongoose.model('Profile', ProfileSchema);
+const Internship = mongoose.model('Internship', InternshipSchema);
 
 // Initial portfolio seeding dataset
 const initialProjects = [
     {
-        title: "Eco-Track App",
-        description: "A high-performance sustainability dashboard designed for corporate carbon tracking. Featuring real-time analytics and industrial-grade data visualization.",
+        title: "Archify AI – AI-Driven Floor Plan to 3D Visualization Platform",
+        description: "Architected an AI-powered platform that transforms 2D floor plans into realistic 3D visualizations, reducing manual rendering time by 80%. Implemented Gemini AI to generate high-quality architectural renders in minutes, accelerating early-stage design visualization. Built a full-stack application using React, Spring Boot, and MongoDB to manage 100+ architectural projects with secure authentication and CRUD operations.",
         imageUrl: "assets/project_preview_1.png",
-        tags: ["React", "Tailwind", "D3.js"],
-        projectLink: "#",
-        category: "Sustainability",
+        tags: ["React", "TypeScript", "Spring Boot", "Java 17", "MongoDB", "Gemini AI"],
+        projectLink: "https://github.com/iamkaifmd/Archify.ai",
+        category: "AI & Web Development",
         order: 1
     },
     {
-        title: "Nexus UI Kit",
-        description: "A comprehensive Design System engineered for scale. Built with a focus on Neo-Brutalist aesthetics and atomic design principles.",
+        title: "AI Driven Agriculture Market Place",
+        description: "Integrated historical and simulated market data to generate intelligent pricing and demand insights. Created a farmer-friendly interface enabling crop listing, search, and marketplace transactions. Automated market analysis and demand forecasting, helping farmers make faster, more informed selling decisions by up to 50%.",
         imageUrl: "assets/project_preview_2.png",
-        tags: ["Figma", "Storybook", "TypeScript"],
+        tags: ["Python", "Flask", "Pandas", "HTML", "MySQL", "JavaScript", "CSS"],
         projectLink: "#",
-        category: "Design System",
+        category: "AI & Data Science",
         order: 2
     },
     {
-        title: "VibeFlow",
-        description: "Next-gen music streaming experience with immersive transitions and atmospheric shader backgrounds. Focused on user discovery.",
+        title: "Flexi Car – Car Rental Website",
+        description: "Developed a full-stack, responsive car rental web application to streamline vehicle booking and rental management. Optimized application deployment on Vercel for scalable and reliable hosting, and architected a modular MERN-based structure. Managed application state effectively using React Context API and useState for a smooth user experience.",
         imageUrl: "assets/project_preview_3.png",
-        tags: ["Three.js", "GLSL", "Next.js"],
+        tags: ["MERN Stack", "Tailwind CSS", "React", "Node.js", "Express", "MongoDB", "Vercel"],
         projectLink: "#",
-        category: "Entertainment",
+        category: "Web Development",
         order: 3
+    },
+    {
+        title: "DebugGPT – AI-Powered Real-Time Code Debugger & Optimizer",
+        description: "Architected an AI-powered code analysis and debugging assistant that automatically detects syntax, logical, and runtime errors in 15+ programming languages. Integrated LLM-based reasoning models to explain bugs step-by-step and provide optimized structural code rewrites. Developed a real-time web console with code editor overlays and instant unit test generation capabilities.",
+        imageUrl: "assets/project_preview_4.png",
+        tags: ["React.js", "Node.js", "Express", "OpenAI API", "Monaco Editor", "Tailwind CSS"],
+        projectLink: "https://github.com/Deepesh055/DEBUG-GPT",
+        category: "AI & Software Engineering",
+        order: 4
+    },
+    {
+        title: "AI Resume Analyzer – Intelligent ATS Scoring & Optimization Engine",
+        description: "Built an AI-driven resume scoring platform that analyzes PDF/Docx resumes against target job descriptions using Natural Language Processing (NLP). Integrated Google Gemini/Claude API to calculate ATS compatibility scores and provide real-time keyword suggestions and structural enhancements. Implemented user-friendly dashboards displaying metrics on readability, spelling, and impact verbs.",
+        imageUrl: "assets/project_preview_5.png",
+        tags: ["Next.js", "Node.js", "Gemini API", "PDF-parse", "Chart.js", "Tailwind CSS"],
+        projectLink: "https://github.com/iamkaifmd/AI-resume-",
+        category: "AI & Web Development",
+        order: 5
     }
 ];
 
 const initialEducation = [
     {
-        institution: "Apex University Graduate School",
-        degree: "M.S. in Software Engineering",
-        period: "2024 - 2026",
-        detailText: "Cloud architectures, advanced algorithms, and machine learning structures. GPA: 3.96/4.00.",
+        institution: "Lovely Professional University",
+        degree: "Master Of Computer Applications",
+        period: "2025 - Present",
+        detailText: "Specializing in computer applications and advanced software engineering concepts. CGPA: 7.89. Located in Phagwara, Punjab.",
         marksheetUrl: "assets/documents/marksheet_post_graduation.pdf",
         order: 1
     },
     {
-        institution: "Apex University",
-        degree: "B.S. in Computer Science",
-        period: "2020 - 2024",
-        detailText: "Foundational mathematics, data structures, and database engines. Cumulative GPA: 3.92/4.00.",
+        institution: "Shri Bajrang Singh Mahavidyalaya Mau Gauriganj",
+        degree: "Bachelor's Of Science (Mathematics)",
+        period: "2021 - 2024",
+        detailText: "Focused on core mathematical theories, algebraic systems, and physics. CGPA: 8.1. Located in Amethi, Uttar Pradesh.",
         marksheetUrl: "assets/documents/marksheet_graduation.pdf",
         order: 2
     },
     {
-        institution: "Tech Academy Secondary School",
-        period: "2018 - 2020",
+        institution: "Janta Shikhshan Sansthan Inter College Jamon Amethi",
+        period: "2019 - 2020",
         degree: "12th Grade (Senior Secondary)",
-        detailText: "Physics, Chemistry, and Advanced Mathematics major. Overall percentage score: 96.2%.",
+        detailText: "General science and mathematics coursework. Percentage: 63%. Located in Amethi, Uttar Pradesh.",
         marksheetUrl: "assets/documents/marksheet_12th.pdf",
         order: 3
     },
     {
-        institution: "Pioneer High School",
-        period: "2016 - 2018",
-        degree: "10th Grade (Secondary School)",
-        detailText: "General high school coursework including computer sciences, languages, and sciences. Score: 94.6%.",
+        institution: "Janta Shikshan Sansthan B I C Jamon Amethi",
+        period: "2017 - 2018",
+        degree: "10th Grade (High School)",
+        detailText: "General high school science and mathematics coursework. Percentage: 81.16%. Located in Amethi, Uttar Pradesh.",
         marksheetUrl: "assets/documents/marksheet_10th.pdf",
         order: 4
     }
 ];
 
-const initialExperience = [
+const initialExperience = [];
+
+const initialInternships = [
     {
-        company: "Helix Labs",
-        role: "Senior Frontend Developer",
-        period: "2024 - Present",
-        description: "Leading a frontend team of developers building premium enterprise interfaces, improving performance optimization metrics by 40%, and maintaining internal UI design libraries.",
-        category: "Senior Role",
+        company: "Deloitte",
+        role: "Data Analytics Virtual Internship",
+        period: "Mar 2026 - Apr 2026",
+        description: "Performed Exploratory Data Analysis (EDA) and Data Cleaning to generate actionable insights. Applied analytical thinking to solve business problems, improving decision-making accuracy. Explored forensic technology concepts such as data validation and anomaly detection.",
+        certificateUrl: "assets/documents/certificate_deloitte.pdf",
         order: 1
     },
     {
-        company: "Nebula Tech",
-        role: "Full Stack Engineer",
-        period: "2022 - 2024",
-        description: "Engineered APIs and backend systems using Node.js and Express. Refactored high-traffic legacy frontend dashboards into modern, responsive, component-based screens.",
-        category: "Full-Stack",
+        company: "JP Morgan Chase & Co.",
+        role: "Software Engineer Virtual Internship",
+        period: "Feb 2026 - Apr 2026",
+        description: "Configured the project environment and built the backend application architecture. Utilized Apache Kafka for real-time data streaming and event processing. Used H2 database for data storage, query execution, and backend testing. Developed and tested RESTful APIs for application functionality.",
+        certificateUrl: "assets/documents/certificate_jpmorgan.pdf",
         order: 2
-    },
-    {
-        company: "Pioneer Studio",
-        role: "Frontend Developer",
-        period: "2021 - 2022",
-        description: "Created responsive HTML templates, customized layout designs, and implemented state management using vanilla JavaScript and basic React hooks.",
-        category: "Frontend",
-        order: 3
     }
 ];
 
 const initialCertificates = [
     {
-        title: "Cloud Architecture Professional",
-        institution: "Amazon Web Services (AWS)",
-        period: "2025",
-        verifyUrl: "assets/documents/certificate_aws.pdf",
-        category: "Cloud",
+        title: "Tech Blitz 2025 Hackathon Participation",
+        institution: "Coding Ninjas LPU & Learner's Arc",
+        period: "Sep 2025",
+        verifyUrl: "assets/documents/certificate_techblitz.pdf",
+        category: "Hackathon",
         order: 1
     },
     {
-        title: "Full-Stack Engineering",
-        institution: "Meta Career Programs",
-        period: "2023",
-        verifyUrl: "assets/documents/certificate_meta.pdf",
-        category: "Web Development",
+        title: "Data Science 101",
+        institution: "IBM (Cognitive Class)",
+        period: "Apr 2026",
+        verifyUrl: "assets/documents/certificate_datascience.pdf",
+        category: "Data Science",
         order: 2
     },
     {
-        title: "UI/UX Design Specialist",
-        institution: "Meta Career Programs",
-        period: "2022",
-        verifyUrl: "assets/documents/certificate_meta.pdf",
-        category: "Design",
+        title: "A Quick Introduction to Machine Learning",
+        institution: "IBM (Cognitive Class)",
+        period: "May 2026",
+        verifyUrl: "assets/documents/certificate_machinelearning.pdf",
+        category: "Machine Learning",
         order: 3
+    },
+    {
+        title: "Prompt Engineering for Everyone",
+        institution: "IBM (Cognitive Class)",
+        period: "Jun 2026",
+        verifyUrl: "assets/documents/certificate_promptengineering.pdf",
+        category: "Artificial Intelligence",
+        order: 4
+    },
+    {
+        title: "Founder's Talk on AI Agents & The Future of Jobs",
+        institution: "Capabl. (Elite Techno Groups)",
+        period: "Sep 2025",
+        verifyUrl: "assets/documents/certificate_founderstalk.pdf",
+        category: "Artificial Intelligence",
+        order: 5
+    },
+    {
+        title: "Software Engineering Job Simulation Certificate",
+        institution: "JP Morgan Chase & Co. (Forage)",
+        period: "Apr 2026",
+        verifyUrl: "assets/documents/certificate_jpmorgan.pdf",
+        category: "Web Development",
+        order: 6
+    },
+    {
+        title: "Data Analytics Job Simulation Certificate",
+        institution: "Deloitte (Forage)",
+        period: "Apr 2026",
+        verifyUrl: "assets/documents/certificate_deloitte.pdf",
+        category: "Data Science",
+        order: 7
     }
 ];
 
 const initialSkills = [
     // Categories
     {
-        name: "UI/UX Design",
-        icon: "web",
+        name: "Data Science & ML",
+        icon: "analytics",
         type: "category",
-        tags: ["User Flows", "Prototyping", "Wireframing"],
-        isCore: false,
+        tags: ["Data Cleaning", "EDA", "Data Visualization", "NumPy", "Pandas", "scikit-learn"],
+        isCore: true,
         order: 1
     },
     {
-        name: "Frontend Dev",
-        icon: "code",
+        name: "Database & Backend",
+        icon: "database",
         type: "category",
-        tags: ["Tailwind", "TypeScript", "Next.js"],
+        tags: ["MySQL", "MongoDB (NoSQL)", "H2 Database", "SQL", "Database Design", "Query Optimization"],
         isCore: true,
         order: 2
     },
     {
-        name: "Brand Identity",
-        icon: "palette",
+        name: "Domain & Soft Skills",
+        icon: "psychology",
         type: "category",
-        tags: ["Logotypes", "Styleguides", "Typography"],
+        tags: ["Data Structures & Algorithms", "Analytical Skills", "Problem Solving", "Critical Thinking"],
         isCore: false,
         order: 3
     },
-    {
-        name: "Motion Graphics",
-        icon: "movie",
-        type: "category",
-        tags: ["Lottie", "Keyframing", "GLSL"],
-        isCore: false,
-        order: 4
-    },
     // Toolkit Tools
     {
-        name: "Figma",
-        icon: "design_services",
+        name: "Python",
+        icon: "code",
         type: "tool",
-        iconColor: "#F24E1E",
+        iconColor: "#3776AB",
+        order: 4
+    },
+    {
+        name: "Java",
+        icon: "code",
+        type: "tool",
+        iconColor: "#007396",
         order: 5
     },
     {
-        name: "Adobe CC",
-        icon: "category",
+        name: "C++",
+        icon: "code",
         type: "tool",
-        iconColor: "#FF0000",
+        iconColor: "#00599C",
         order: 6
+    },
+    {
+        name: "HTML & CSS",
+        icon: "html",
+        type: "tool",
+        iconColor: "#E34F26",
+        order: 7
+    },
+    {
+        name: "Git & GitHub",
+        icon: "terminal",
+        type: "tool",
+        iconColor: "#F05032",
+        order: 8
     },
     {
         name: "VS Code",
         icon: "terminal",
         type: "tool",
         iconColor: "#007ACC",
-        order: 7
+        order: 9
     },
     {
-        name: "React",
-        icon: "dynamic_form",
+        name: "Jupyter",
+        icon: "description",
         type: "tool",
-        iconColor: "#61DAFB",
-        order: 8
+        iconColor: "#F37626",
+        order: 10
+    },
+    {
+        name: "Vercel",
+        icon: "cloud",
+        type: "tool",
+        iconColor: "#000000",
+        order: 11
+    },
+    {
+        name: "IBM SPSS Modeler",
+        icon: "query_stats",
+        type: "tool",
+        iconColor: "#325cff",
+        order: 12
+    },
+    {
+        name: "IBM Cognos Analytics",
+        icon: "pie_chart",
+        type: "tool",
+        iconColor: "#0062ff",
+        order: 13
+    },
+    {
+        name: "Java IDE",
+        icon: "code",
+        type: "tool",
+        iconColor: "#e76f51",
+        order: 14
+    },
+    {
+        name: "IoT IDE (Arduino)",
+        icon: "developer_board",
+        type: "tool",
+        iconColor: "#00979d",
+        order: 15
     }
 ];
 
 const initialProfile = {
     profilePhoto: "assets/profile_avatar.png",
-    resumeUrl: "assets/documents/marksheet_post_graduation.pdf",
-    cvUrl: "assets/documents/marksheet_post_graduation.pdf"
+    resumeUrl: "assets/documents/cv_tafsheen.pdf",
+    cvUrl: "assets/documents/cv_tafsheen.pdf"
 };
 
 const initialPatents = [
     {
-        title: "System and Method for Adaptive Image Compression",
+        title: "AI-Based Soil Immune Health Monitoring and Forecasting Disease Prevention System",
         institution: "Indian Patent Office",
-        period: "2025",
-        verifyUrl: "assets/documents/certificate_aws.pdf",
-        category: "Software",
+        period: "2026",
+        verifyUrl: "assets/documents/patent_soilhealth.pdf",
+        category: "Agriculture AI",
+        imageUrl: "assets/patent_soilhealth.png",
         order: 1
+    },
+    {
+        title: "Self-Healing Aircraft Wing Using Smart Materials",
+        institution: "Indian Patent Office",
+        period: "2026",
+        verifyUrl: "assets/documents/patent_selfhealingwing.pdf",
+        category: "Aerospace Materials",
+        imageUrl: "assets/patent_selfhealingwing.png",
+        order: 2
+    },
+    {
+        title: "Velocity-Responsive Bioluminescent Plant Matrix for Adaptive Urban Illumination Systems",
+        institution: "Indian Patent Office",
+        period: "2026",
+        verifyUrl: "assets/documents/patent_velocitybioplant.pdf",
+        category: "Urban Illumination",
+        imageUrl: "assets/patent_velocitybioplant.png",
+        order: 3
     }
 ];
 
 const initialResearch = [
     {
-        title: "Deep Learning for Real-Time Semantic Segmentation",
-        institution: "IEEE Journal of Computer Vision",
-        period: "2024",
-        verifyUrl: "assets/documents/certificate_meta.pdf",
-        category: "AI/ML",
+        title: "Fake News Text Classification Using Machine Learning: A Natural Language Processing Approach",
+        institution: "International Journal of Computer Applications",
+        period: "2026",
+        verifyUrl: "assets/documents/research_fakenews.pdf",
+        category: "NLP / ML",
+        imageUrl: "assets/research_fakenews.png",
         order: 1
+    },
+    {
+        title: "AI-Driven Predictive Analysis of Social Media Impact on Youth Mental Health with Chatbot Integration",
+        institution: "Lovely Professional University B.C.A. Capstone Project",
+        period: "2026",
+        verifyUrl: "assets/documents/research_socialmediahealth.pdf",
+        category: "AI & Mental Health",
+        imageUrl: "assets/research_socialmediahealth.png",
+        order: 2
     }
 ];
 
 async function seedDatabase() {
+    // Write static backup first (resilient fallback for local development without DB access)
+    try {
+        const fs = require('fs');
+        const path = require('path');
+        const backupData = {
+            projects: initialProjects,
+            education: initialEducation,
+            experience: initialExperience,
+            certificates: initialCertificates,
+            skills: initialSkills,
+            patents: initialPatents,
+            research: initialResearch,
+            profile: initialProfile,
+            internships: initialInternships
+        };
+        const backupPath = path.join(__dirname, 'public', 'assets', 'data.json');
+        fs.mkdirSync(path.dirname(backupPath), { recursive: true });
+        fs.writeFileSync(backupPath, JSON.stringify(backupData, null, 2), 'utf8');
+        console.log('Static backup successfully saved to public/assets/data.json');
+    } catch (backupErr) {
+        console.error('Failed to save local static backup:', backupErr);
+    }
+
     try {
         console.log('Connecting to database...');
         await mongoose.connect(MONGODB_URI);
@@ -313,7 +469,8 @@ async function seedDatabase() {
             Skill.deleteMany({}),
             Profile.deleteMany({}),
             Patent.deleteMany({}),
-            ResearchPaper.deleteMany({})
+            ResearchPaper.deleteMany({}),
+            Internship.deleteMany({})
         ]);
         console.log('Cleared existing data.');
 
@@ -327,28 +484,11 @@ async function seedDatabase() {
             Skill.insertMany(initialSkills),
             Profile.create(initialProfile),
             Patent.insertMany(initialPatents),
-            ResearchPaper.insertMany(initialResearch)
+            ResearchPaper.insertMany(initialResearch),
+            Internship.insertMany(initialInternships)
         ]);
 
         console.log('Database seeding successfully finished!');
-
-        // Write static backup
-        const fs = require('fs');
-        const path = require('path');
-        const backupData = {
-            projects: initialProjects,
-            education: initialEducation,
-            experience: initialExperience,
-            certificates: initialCertificates,
-            skills: initialSkills,
-            patents: initialPatents,
-            research: initialResearch,
-            profile: initialProfile
-        };
-        const backupPath = path.join(__dirname, 'public', 'assets', 'data.json');
-        fs.mkdirSync(path.dirname(backupPath), { recursive: true });
-        fs.writeFileSync(backupPath, JSON.stringify(backupData, null, 2), 'utf8');
-        console.log('Static backup saved to public/assets/data.json');
     } catch (err) {
         console.error('Failed to seed database:', err);
     } finally {

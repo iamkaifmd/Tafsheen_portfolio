@@ -2,11 +2,20 @@
 <html class="light scroll-smooth" lang="en">
 
 <head>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Aiden Sterling | Neo-Brutalist Portfolio</title>
+    <title>Md Tafsheen | Neo-Brutalist Portfolio</title>
     <meta name="description"
-        content="Professional portfolio of Aiden Sterling - Full Stack Developer & UI/UX Designer. Built with Neo-Brutalist design systems.">
+        content="Professional portfolio of Md Tafsheen - Data Analyst & Software Engineer. Built with Neo-Brutalist design systems.">
 
     <!-- Tailwind CSS with Forms & Container Queries plugins -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -58,16 +67,226 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-track {
             background: #f7f9fc;
         }
 
+        .dark .custom-scrollbar::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #191c1e;
-            border-radius: 4px;
+            background: #0040df;
+            border-radius: 6px;
+            border: 2px solid #f7f9fc;
+        }
+
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border: 2px solid #121212;
+        }
+
+        /* Ambient Glow & Grid Backdrop */
+        .bg-grid-pattern {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+        }
+        .dark .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        .gradient-glow {
+            position: relative;
+            z-index: 1;
+        }
+        .gradient-glow::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 120%;
+            height: 140%;
+            background: radial-gradient(circle, rgba(0, 64, 223, 0.08) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(25px);
+        }
+        .dark .gradient-glow::before {
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        /* Nav underlines */
+        .nav-link-underline {
+            position: relative;
+        }
+        .nav-link-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 3px;
+            bottom: -6px;
+            left: 0;
+            background-color: #0040df;
+            transform-origin: bottom right;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark .nav-link-underline::after {
+            background-color: #3b82f6;
+        }
+        .nav-link-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .neo-card {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        }
+
+        /* ==========================================================================
+           DARK THEME NEO-BRUTALIST OVERRIDES (DAY/NIGHT EFFECT)
+           ========================================================================== */
+        .dark, .dark body {
+            background-color: #121212 !important;
+            color: #f3f4f6 !important;
+        }
+
+        .dark .bg-background {
+            background-color: #121212 !important;
+        }
+
+        .dark .bg-surface {
+            background-color: #1c1c1e !important;
+        }
+
+        .dark .text-on-surface {
+            color: #f3f4f6 !important;
+        }
+
+        .dark .text-on-background {
+            color: #f3f4f6 !important;
+        }
+
+        .dark .text-on-surface-variant {
+            color: #9ca3af !important;
+        }
+
+        .dark .bg-surface-container {
+            background-color: #242426 !important;
+        }
+
+        .dark .bg-surface-container-high {
+            background-color: #2c2c2e !important;
+        }
+
+        .dark .bg-secondary-container {
+            background-color: #1d2d50 !important;
+            color: #9fafff !important;
+        }
+
+        .dark .border-on-surface,
+        .dark .border-on-background,
+        .dark .brutalist-border {
+            border-color: #f3f4f6 !important;
+        }
+
+        .dark .brutalist-shadow {
+            box-shadow: 6px 6px 0px 0px #f3f4f6 !important;
+        }
+
+        .dark .brutalist-shadow-sm {
+            box-shadow: 4px 4px 0px 0px #f3f4f6 !important;
+        }
+
+        .dark .hard-shadow {
+            box-shadow: 8px 8px 0px 0px #f3f4f6 !important;
+        }
+
+        .dark .neumorphic-base {
+            box-shadow: 8px 8px 16px #09090a, -8px -8px 16px #222225 !important;
+        }
+
+        .dark .neumorphic-inset {
+            box-shadow: inset 6px 6px 12px #09090a, inset -6px -6px 12px #222225 !important;
+        }
+
+        .dark .neo-card:hover {
+            box-shadow: 12px 12px 0px 0px #f3f4f6, 10px 10px 20px #09090a !important;
+            transform: translate(-4px, -4px);
+        }
+
+        .dark .hover-shadow-shift:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px 0px #f3f4f6 !important;
+        }
+
+        .dark .active-shadow-shift:active {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0px 0px #f3f4f6 !important;
+        }
+
+        .dark #theme-toggle {
+            background-color: #2b1055 !important;
+            color: #ffe600 !important;
+            border-color: #f3f4f6 !important;
+            box-shadow: 4px 4px 0px 0px #f3f4f6 !important;
+        }
+
+        .dark #theme-toggle:hover {
+            box-shadow: 8px 8px 0px 0px #f3f4f6 !important;
+        }
+
+        .dark .pdf-modal-content {
+            border-color: #f3f4f6 !important;
+            box-shadow: 10px 10px 0px 0px #f3f4f6 !important;
+        }
+
+        .dark .pdf-modal-header {
+            background: #1c1c1e !important;
+            border-bottom-color: #f3f4f6 !important;
+        }
+
+        .dark .pdf-modal-close {
+            background: #1c1c1e !important;
+            border-color: #f3f4f6 !important;
+            color: #f3f4f6 !important;
+        }
+
+        .dark .pdf-modal-close:hover {
+            background: #0040df !important;
+            color: #ffffff !important;
+        }
+
+        .dark .pdf-modal-footer {
+            background: #1c1c1e !important;
+            border-top-color: #f3f4f6 !important;
+        }
+
+        .dark .pdf-modal-body,
+        .dark #pdf-iframe {
+            background: #121212 !important;
+        }
+
+        /* Smooth page color cross-fade transitions */
+        body, header, footer, section, .neo-card, a, button, input, textarea {
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        }
+
+        /* Scroll reveal styling */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 
@@ -165,7 +384,7 @@
     </script>
 </head>
 
-<body class="bg-background text-on-surface font-body-md min-h-screen custom-scrollbar overflow-x-hidden">
+<body class="bg-background text-on-surface font-body-md min-h-screen custom-scrollbar overflow-x-hidden bg-grid-pattern">
 
     <!-- TopAppBar -->
     <header
@@ -177,24 +396,26 @@
                 class="font-display-lg text-headline-lg-mobile tracking-tighter text-on-surface uppercase font-black">PORTFOLIO</span>
         </div>
         <div class="hidden md:flex gap-6 items-center">
-            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#hero">Home</a>
-            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline" href="#hero">Home</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline"
                 href="#about">About</a>
-            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline"
                 href="#education">Education</a>
-            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline"
+                href="#internships">Internships</a>
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline"
                 href="#experience">Experience</a>
-            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline"
                 href="#skills">Skills</a>
-            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline"
                 href="#certificates">Certificates</a>
-            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline"
                 href="#projects">Projects</a>
-            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline"
                 href="#patents">Patents</a>
-            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline"
                 href="#research">Research</a>
-            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+            <a class="font-label-md text-on-surface-variant hover:text-primary transition-colors nav-link-underline"
                 href="#contact">Contact</a>
         </div>
         <a class="material-symbols-outlined text-primary text-3xl hover:translate-y-[-2px] transition-all active:translate-y-[2px]"
@@ -205,23 +426,22 @@
     <main class="pt-32 pb-40 px-container-padding max-w-7xl mx-auto flex flex-col gap-24">
 
         <!-- 1st Section: Main (Hero) Section -->
-        <section id="hero" class="mb-8">
+        <section id="hero" class="mb-8 gradient-glow">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-7 flex flex-col gap-6">
                     <span
-                        class="bg-primary text-on-primary self-start font-label-md text-xs px-3 py-1 border-3 border-on-surface uppercase tracking-widest brutalist-shadow-sm">CREATIVE
-                        ENGINEER</span>
+                        class="bg-primary text-on-primary self-start font-label-md text-xs px-3 py-1 border-3 border-on-surface uppercase tracking-widest brutalist-shadow-sm">DATA ANALYST & SOFTWARE ENGINEER</span>
                     <h1 class="font-display-lg text-display-lg uppercase text-on-surface">
-                        Hi, I'm <br /><span class="text-primary">Aiden Sterling</span>
+                        Hi, I'm <br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary font-black">Md Tafsheen</span>
                     </h1>
                     <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
                         I build custom software solutions at the intersection of robust engineering architecture and
                         modern digital interface designs.
                     </p>
                     <div class="flex gap-4">
-                        <a id="profile-cv-link" href="assets/documents/marksheet_post_graduation.pdf" target="_blank"
+                        <a id="profile-cv-link" href="assets/documents/cv_tafsheen.pdf" target="_blank"
                             class="pdf-link px-8 py-4 bg-primary text-on-primary font-label-md border-3 border-on-surface brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all text-center flex items-center justify-center gap-2"
-                            data-title="Aiden Sterling - CV/Resume">
+                            data-title="Md Tafsheen - CV/Resume">
                             <span class="material-symbols-outlined text-sm font-bold">download</span>
                             <span>DOWNLOAD CV</span>
                         </a>
@@ -235,7 +455,7 @@
                 <div class="lg:col-span-5 flex justify-center">
                     <div
                         class="w-[340px] h-[340px] neumorphic-base brutalist-border rounded-xl bg-surface p-base overflow-hidden relative group">
-                        <img id="profile-img" src="assets/profile_avatar.png" alt="Aiden Sterling Photo"
+                        <img id="profile-img" src="assets/profile_avatar.png" alt="Md Tafsheen Photo"
                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80'">
                     </div>
@@ -258,44 +478,43 @@
                     WHO I AM
                 </div>
                 <h2 class="font-display-lg text-display-lg mb-4 text-on-surface">About <span
-                        class="text-primary">Us</span></h2>
+                        class="text-primary">Me</span></h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-7 flex flex-col gap-6">
-                    <h3 class="font-headline-lg text-headline-lg mb-2 text-on-surface">Fusing Industrial Rules and
-                        Modern Engineering</h3>
+                    <h3 class="font-headline-lg text-headline-lg mb-2 text-on-surface">AI & Software Engineer specializing in Intelligent Solutions</h3>
                     <p class="font-body-lg text-on-surface-variant">
-                        I am a full stack developer and interface designer with 4 years of coding experience. I help
-                        teams design, build, and deploy digital assets with high-level code standards. My work
-                        emphasizes layout structures, clean database queries, and functional details.
+                        Hi, I'm an MCA student specializing in Artificial Intelligence and Machine Learning. I am passionate about developing intelligent software solutions that leverage AI, data analytics, and modern software technologies to solve real-world challenges.
                     </p>
                     <p class="font-body-md text-on-surface-variant">
-                        Whether engineering streaming dashboard charts, or setting up AWS micro-instances, I ensure a
-                        visual identity matches high coding standards.
+                        With hands-on experience in Python, Java, Spring Boot, Machine Learning, and Data Analytics, I enjoy transforming innovative ideas into scalable and impactful applications. My interests include Artificial Intelligence, Data Science, Software Engineering, and Intelligent Automation.
+                    </p>
+                    <p class="font-body-md text-on-surface-variant">
+                        I am committed to continuous learning, writing clean and efficient code, and building technology that delivers meaningful value. I am always eager to take on challenging projects, collaborate with innovative teams, and grow as an AI and Software Engineer.
                     </p>
                 </div>
 
                 <div class="lg:col-span-5 grid grid-cols-2 gap-6">
                     <div class="p-6 bg-surface border-3 border-on-surface rounded-xl brutalist-shadow-sm text-center">
-                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">4+</span>
-                        <span class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Years
-                            Exp</span>
+                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">5+</span>
+                        <span class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Projects
+                            Done</span>
                     </div>
                     <div class="p-6 bg-surface border-3 border-on-surface rounded-xl brutalist-shadow-sm text-center">
-                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">24+</span>
+                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">7+</span>
                         <span
-                            class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Completed</span>
+                            class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Certificates</span>
                     </div>
                     <div class="p-6 bg-surface border-3 border-on-surface rounded-xl brutalist-shadow-sm text-center">
-                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">15</span>
-                        <span class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Happy
-                            Clients</span>
+                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">3</span>
+                        <span class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Patents
+                            Filed</span>
                     </div>
                     <div class="p-6 bg-surface border-3 border-on-surface rounded-xl brutalist-shadow-sm text-center">
-                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">99%</span>
-                        <span class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Success
-                            Rate</span>
+                        <span class="block font-display-lg text-4xl text-primary font-black mb-2">2</span>
+                        <span class="font-label-md text-xs text-on-surface-variant uppercase tracking-widest">Research
+                            Papers</span>
                     </div>
                 </div>
             </div>
@@ -324,6 +543,32 @@
             </div>
 
             <div id="education-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Loaded Dynamically from MongoDB -->
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 py-2">
+            <div class="h-1 bg-on-surface flex-grow"></div>
+            <div class="h-6 w-6 border-3 border-on-surface rotate-45 bg-primary"></div>
+            <div class="h-1 bg-on-surface flex-grow"></div>
+        </div>
+
+        <!-- 3.5th Section: Internships Section -->
+        <section id="internships">
+            <div class="mb-12">
+                <div
+                    class="inline-block bg-primary text-on-primary px-4 py-1 mb-4 border-3 border-on-surface brutalist-shadow-sm font-label-md uppercase">
+                    PRACTICAL EXPERIENCE
+                </div>
+                <h2 class="font-display-lg text-display-lg mb-4 text-on-surface">Internship <span
+                        class="text-primary">Simulations</span></h2>
+                <p class="font-body-lg text-on-surface-variant max-w-2xl">
+                    Details of virtual internships and industry-grade job simulations, complete with verified certificates.
+                </p>
+            </div>
+
+            <div id="internships-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Loaded Dynamically from MongoDB -->
             </div>
         </section>
@@ -553,8 +798,8 @@
                                 <span
                                     class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest">EMAIL
                                     ME</span>
-                                <a href="mailto:aiden.sterling@example.com"
-                                    class="font-body-md font-bold text-primary hover:underline">aiden.sterling@example.com</a>
+                                <a href="mailto:kk0521359@gmail.com"
+                                    class="font-body-md font-bold text-primary hover:underline">kk0521359@gmail.com</a>
                             </div>
                         </div>
 
@@ -567,15 +812,14 @@
                                 <span
                                     class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest">CALL
                                     ME</span>
-                                <a href="tel:+15550199" class="font-body-md font-bold text-primary hover:underline">+1
-                                    (555) 0199</a>
+                                <a href="tel:+919628392986" class="font-body-md font-bold text-primary hover:underline">+91 9628392986</a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Social handles -->
                     <div class="flex gap-4 mt-8">
-                        <a href="#"
+                        <a href="https://github.com/iamkaifmd" target="_blank"
                             class="w-12 h-12 border-3 border-on-surface bg-surface text-on-surface flex items-center justify-center rounded-lg brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all"
                             aria-label="GitHub">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -584,7 +828,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="https://www.linkedin.com/in/iamtafsheen" target="_blank"
                             class="w-12 h-12 border-3 border-on-surface bg-surface text-on-surface flex items-center justify-center rounded-lg brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all"
                             aria-label="LinkedIn">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -592,13 +836,13 @@
                                     d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="https://leetcode.com/u/Mr_khan96/" target="_blank"
                             class="w-12 h-12 border-3 border-on-surface bg-surface text-on-surface flex items-center justify-center rounded-lg brutalist-shadow-sm hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all"
-                            aria-label="Instagram">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M7.75 2h8.5C19.425 2 22 4.575 22 7.75v8.5C22 19.425 19.425 22 16.25 22h-8.5C4.575 22 2 19.425 2 16.25v-8.5C2 4.575 4.575 2 7.75 2zm0 2C5.679 4 4 5.679 4 7.75v8.5C4 18.321 5.679 20 7.75 20h8.5C18.321 20 20 18.321 20 16.25v-8.5C20 5.679 18.321 4 16.25 4h-8.5zm9.75 1.5a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z" />
-                            </svg> </a>
+                            aria-label="LeetCode">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16.102 17.93l-2.697 2.607c-.466.45-1.22.45-1.685 0L4.32 13.07a1.168 1.168 0 0 1 0-1.687L11.72 3.84c.465-.45 1.219-.45 1.685 0l2.697 2.607c.466.45.466 1.18 0 1.63L11.58 12.3c-.466.45-1.22.45-1.685 0L7.65 10.15c-.466-.45-1.22-.45-1.686 0a1.168 1.168 0 0 0 0 1.687l2.245 2.15c.466.45 1.22.45 1.686 0l6.207-5.99c.466-.45.466-1.18 0-1.63L13.4 3.84c-.466-.45-1.22-.45-1.685 0L4.32 11.383a1.168 1.168 0 0 0 0 1.687l7.398 7.54c.466.45 1.22.45 1.686 0l2.698-2.68c.466-.45.466-1.18 0-1.63a1.168 1.168 0 0 0-1.686 0z"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
 
@@ -675,7 +919,7 @@
         <div class="flex flex-col items-center md:items-start gap-4">
             <span class="font-display-lg text-on-surface text-2xl tracking-tighter uppercase font-black">Portfolio
                 Core</span>
-            <span class="font-body-md text-on-surface-variant">© 2026 Aiden Sterling. Built with Neo-Brutalism.</span>
+            <span class="font-body-md text-on-surface-variant">© 2026 Md Tafsheen. Built with Neo-Brutalism.</span>
         </div>
         <div class="flex gap-8">
             <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors hover:underline"
@@ -716,6 +960,11 @@
             <span class="font-label-md text-[10px]">Contact</span>
         </a>
     </nav>
+
+    <!-- Floating Theme Toggle Button -->
+    <button id="theme-toggle" class="fixed bottom-24 right-6 z-40 w-14 h-14 rounded-full border-3 border-on-surface bg-[#ffe600] text-on-surface flex items-center justify-center brutalist-shadow hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" aria-label="Toggle Theme">
+        <span class="material-symbols-outlined text-2xl font-bold">dark_mode</span>
+    </button>
 
     <!-- PDF Viewer Modal -->
     <div id="pdf-modal" class="pdf-modal hidden" aria-hidden="true">

@@ -245,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderProjects(data.projects || []);
             renderEducation(data.education || []);
             renderExperience(data.experience || []);
+            renderInternships(data.internships || []);
             renderCertificates(data.certificates || []);
             renderPatents(data.patents || []);
             renderResearch(data.research || []);
@@ -253,6 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Setup bindings for dynamic loaded nodes
             bindDynamicInteractions();
+            initScrollReveal();
 
         } catch (err) {
             console.error('Failed to load portfolio database content, trying static fallback:', err);
@@ -266,6 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderProjects(data.projects || []);
                 renderEducation(data.education || []);
                 renderExperience(data.experience || []);
+                renderInternships(data.internships || []);
                 renderCertificates(data.certificates || []);
                 renderPatents(data.patents || []);
                 renderResearch(data.research || []);
@@ -274,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Setup bindings for dynamic loaded nodes
                 bindDynamicInteractions();
+                initScrollReveal();
                 console.log('Successfully loaded fallback static portfolio data');
             } catch (fallbackErr) {
                 console.error('Failed to load static fallback data:', fallbackErr);
@@ -348,6 +352,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 <a href="${escapeHtml(edu.marksheetUrl)}" target="_blank" class="pdf-link px-4 py-2 bg-surface border-3 border-on-surface rounded-lg font-label-md text-center hover:bg-primary hover:text-on-primary transition-colors flex items-center justify-center gap-2 self-start brutalist-shadow-sm" data-title="${escapeHtml(edu.degree)} Transcript">
                     <span class="material-symbols-outlined text-sm">verified_user</span>
                     <span>VIEW MARKSHEET</span>
+                </a>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function renderInternships(internships) {
+        const grid = document.getElementById('internships-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        if (internships.length === 0) {
+            grid.innerHTML = '<p class="text-center font-bold text-on-surface-variant col-span-2">No internship history available.</p>';
+            return;
+        }
+
+        internships.forEach(intern => {
+            const card = document.createElement('div');
+            card.className = "neo-card neumorphic-base brutalist-border bg-surface p-6 rounded-xl transition-all duration-300 flex flex-col justify-between";
+            card.innerHTML = `
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="material-symbols-outlined text-primary text-4xl">work_history</span>
+                        <span class="font-label-md text-label-md uppercase bg-secondary-container px-3 py-1 brutalist-border">${escapeHtml(intern.period)}</span>
+                    </div>
+                    <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">${escapeHtml(intern.role)}</h3>
+                    <p class="font-body-md text-on-surface-variant font-bold mb-2">${escapeHtml(intern.company)}</p>
+                    <p class="font-body-md text-on-surface-variant mb-6">${escapeHtml(intern.description)}</p>
+                </div>
+                <a href="${escapeHtml(intern.certificateUrl)}" target="_blank" class="pdf-link px-4 py-2 bg-surface border-3 border-on-surface rounded-lg font-label-md text-center hover:bg-primary hover:text-on-primary transition-colors flex items-center justify-center gap-2 self-start brutalist-shadow-sm" data-title="${escapeHtml(intern.role)} Certificate">
+                    <span class="material-symbols-outlined text-sm">verified_user</span>
+                    <span>VIEW CERTIFICATE</span>
                 </a>
             `;
             grid.appendChild(card);
@@ -440,22 +476,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         patents.forEach(pat => {
             const card = document.createElement('div');
-            card.className = "neo-card neumorphic-base brutalist-border bg-surface p-6 rounded-xl transition-all duration-300 flex flex-col justify-between";
+            card.className = "neo-card neumorphic-base brutalist-border bg-surface rounded-xl overflow-hidden transition-all duration-300 flex flex-col justify-between";
             card.innerHTML = `
                 <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="bg-on-background text-background p-3 brutalist-border">
-                            <span class="material-symbols-outlined text-3xl">description</span>
-                        </div>
-                        <span class="font-label-md text-label-md uppercase bg-secondary-container px-3 py-1 brutalist-border">${escapeHtml(pat.period)}</span>
+                    ${pat.imageUrl ? `
+                    <div class="h-44 w-full overflow-hidden border-b-3 border-on-surface">
+                        <img src="${escapeHtml(pat.imageUrl)}" alt="${escapeHtml(pat.title)}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
                     </div>
-                    <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">${escapeHtml(pat.title)}</h3>
-                    <p class="font-body-md text-body-md text-on-surface-variant mb-4">${escapeHtml(pat.institution)}</p>
+                    ` : ''}
+                    <div class="p-6 pb-2">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-on-background text-background p-3 brutalist-border">
+                                <span class="material-symbols-outlined text-3xl">description</span>
+                            </div>
+                            <span class="font-label-md text-label-md uppercase bg-secondary-container px-3 py-1 brutalist-border">${escapeHtml(pat.period)}</span>
+                        </div>
+                        <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">${escapeHtml(pat.title)}</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-4">${escapeHtml(pat.institution)}</p>
+                    </div>
                 </div>
-                <a href="${escapeHtml(pat.verifyUrl)}" target="_blank" class="pdf-link flex items-center gap-2 text-primary font-bold hover:underline self-start" data-title="${escapeHtml(pat.title)}">
-                    <span class="material-symbols-outlined text-sm">link</span>
-                    <span class="font-label-md text-label-md">OPEN PATENT</span>
-                </a>
+                <div class="p-6 pt-0">
+                    <a href="${escapeHtml(pat.verifyUrl)}" target="_blank" class="pdf-link flex items-center gap-2 text-primary font-bold hover:underline self-start" data-title="${escapeHtml(pat.title)}">
+                        <span class="material-symbols-outlined text-sm">link</span>
+                        <span class="font-label-md text-label-md">OPEN PATENT</span>
+                    </a>
+                </div>
             `;
             grid.appendChild(card);
         });
@@ -473,22 +518,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         papers.forEach(paper => {
             const card = document.createElement('div');
-            card.className = "neo-card neumorphic-base brutalist-border bg-surface p-6 rounded-xl transition-all duration-300 flex flex-col justify-between";
+            card.className = "neo-card neumorphic-base brutalist-border bg-surface rounded-xl overflow-hidden transition-all duration-300 flex flex-col justify-between";
             card.innerHTML = `
                 <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="bg-on-background text-background p-3 brutalist-border">
-                            <span class="material-symbols-outlined text-3xl">menu_book</span>
-                        </div>
-                        <span class="font-label-md text-label-md uppercase bg-secondary-container px-3 py-1 brutalist-border">${escapeHtml(paper.period)}</span>
+                    ${paper.imageUrl ? `
+                    <div class="h-44 w-full overflow-hidden border-b-3 border-on-surface">
+                        <img src="${escapeHtml(paper.imageUrl)}" alt="${escapeHtml(paper.title)}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
                     </div>
-                    <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">${escapeHtml(paper.title)}</h3>
-                    <p class="font-body-md text-body-md text-on-surface-variant mb-4">${escapeHtml(paper.institution)}</p>
+                    ` : ''}
+                    <div class="p-6 pb-2">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="bg-on-background text-background p-3 brutalist-border">
+                                <span class="material-symbols-outlined text-3xl">menu_book</span>
+                            </div>
+                            <span class="font-label-md text-label-md uppercase bg-secondary-container px-3 py-1 brutalist-border">${escapeHtml(paper.period)}</span>
+                        </div>
+                        <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">${escapeHtml(paper.title)}</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-4">${escapeHtml(paper.institution)}</p>
+                    </div>
                 </div>
-                <a href="${escapeHtml(paper.verifyUrl)}" target="_blank" class="pdf-link flex items-center gap-2 text-primary font-bold hover:underline self-start" data-title="${escapeHtml(paper.title)}">
-                    <span class="material-symbols-outlined text-sm">link</span>
-                    <span class="font-label-md text-label-md">OPEN PAPER</span>
-                </a>
+                <div class="p-6 pt-0">
+                    <a href="${escapeHtml(paper.verifyUrl)}" target="_blank" class="pdf-link flex items-center gap-2 text-primary font-bold hover:underline self-start" data-title="${escapeHtml(paper.title)}">
+                        <span class="material-symbols-outlined text-sm">link</span>
+                        <span class="font-label-md text-label-md">OPEN PAPER</span>
+                    </a>
+                </div>
             `;
             grid.appendChild(card);
         });
@@ -626,6 +680,64 @@ document.addEventListener('DOMContentLoaded', () => {
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
     };
+
+    // --------------------------------------------------
+    // SCROLL REVEAL ENTER ANIMATIONS
+    // --------------------------------------------------
+    function initScrollReveal() {
+        const revealElements = document.querySelectorAll('section, .neo-card, article');
+        revealElements.forEach(el => {
+            if (!el.classList.contains('scroll-reveal')) {
+                el.classList.add('scroll-reveal');
+            }
+        });
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Reveal once
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    }
+
+    // --------------------------------------------------
+    // THEME TOGGLE (LIGHT / DARK MODE)
+    // --------------------------------------------------
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+        const iconNode = themeToggleBtn.querySelector('.material-symbols-outlined');
+        
+        const updateToggleIcon = () => {
+            if (document.documentElement.classList.contains('dark')) {
+                if (iconNode) iconNode.textContent = 'light_mode';
+            } else {
+                if (iconNode) iconNode.textContent = 'dark_mode';
+            }
+        };
+
+        // Initialize icon state
+        updateToggleIcon();
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.remove('light');
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateToggleIcon();
+        });
+    }
 
     // Load data
     loadDynamicData();
