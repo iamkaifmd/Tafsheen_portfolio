@@ -120,12 +120,20 @@
   "experience": [],
   "certificates": [
     {
+      "title": "Data Science with Python - Certificate of Merit",
+      "institution": "Centre for Professional Enhancement, LPU",
+      "period": "Jul 2026",
+      "verifyUrl": "assets/documents/certificate_lpu_datascience.pdf",
+      "category": "Data Science",
+      "order": 1
+    },
+    {
       "title": "Tech Blitz 2025 Hackathon Participation",
       "institution": "Coding Ninjas LPU & Learner's Arc",
       "period": "Sep 2025",
       "verifyUrl": "assets/documents/certificate_techblitz.pdf",
       "category": "Hackathon",
-      "order": 1
+      "order": 2
     },
     {
       "title": "Data Science 101",
@@ -133,7 +141,7 @@
       "period": "Apr 2026",
       "verifyUrl": "assets/documents/certificate_datascience.pdf",
       "category": "Data Science",
-      "order": 2
+      "order": 3
     },
     {
       "title": "A Quick Introduction to Machine Learning",
@@ -141,7 +149,7 @@
       "period": "May 2026",
       "verifyUrl": "assets/documents/certificate_machinelearning.pdf",
       "category": "Machine Learning",
-      "order": 3
+      "order": 4
     },
     {
       "title": "Prompt Engineering for Everyone",
@@ -149,7 +157,7 @@
       "period": "Jun 2026",
       "verifyUrl": "assets/documents/certificate_promptengineering.pdf",
       "category": "Artificial Intelligence",
-      "order": 4
+      "order": 5
     },
     {
       "title": "Founder's Talk on AI Agents & The Future of Jobs",
@@ -157,7 +165,7 @@
       "period": "Sep 2025",
       "verifyUrl": "assets/documents/certificate_founderstalk.pdf",
       "category": "Artificial Intelligence",
-      "order": 5
+      "order": 6
     },
     {
       "title": "Software Engineering Job Simulation Certificate",
@@ -165,7 +173,7 @@
       "period": "Apr 2026",
       "verifyUrl": "assets/documents/certificate_jpmorgan.pdf",
       "category": "Web Development",
-      "order": 6
+      "order": 7
     },
     {
       "title": "Data Analytics Job Simulation Certificate",
@@ -173,7 +181,7 @@
       "period": "Apr 2026",
       "verifyUrl": "assets/documents/certificate_deloitte.pdf",
       "category": "Data Science",
-      "order": 7
+      "order": 8
     }
   ],
   "skills": [
@@ -361,12 +369,20 @@
   },
   "internships": [
     {
+      "company": "Lovely Professional University (CPE)",
+      "role": "Data Science with Python Summer Trainee & Intern",
+      "period": "Jun 2026 - Jul 2026",
+      "description": "Completed an intensive skill development training and internship program on Data Science with Python organized by the Centre for Professional Enhancement (CPE), Lovely Professional University. Gained hands-on expertise in Python programming, data analytics, Exploratory Data Analysis (EDA), and machine learning foundations with Grade 'A' distinction (Certificate No. 490879).",
+      "certificateUrl": "assets/documents/certificate_lpu_datascience.pdf",
+      "order": 1
+    },
+    {
       "company": "Deloitte",
       "role": "Data Analytics Virtual Internship",
       "period": "Mar 2026 - Apr 2026",
       "description": "Performed Exploratory Data Analysis (EDA) and Data Cleaning to generate actionable insights. Applied analytical thinking to solve business problems, improving decision-making accuracy. Explored forensic technology concepts such as data validation and anomaly detection.",
       "certificateUrl": "assets/documents/certificate_deloitte.pdf",
-      "order": 1
+      "order": 2
     },
     {
       "company": "JP Morgan Chase & Co.",
@@ -374,7 +390,7 @@
       "period": "Feb 2026 - Apr 2026",
       "description": "Configured the project environment and built the backend application architecture. Utilized Apache Kafka for real-time data streaming and event processing. Used H2 database for data storage, query execution, and backend testing. Developed and tested RESTful APIs for application functionality.",
       "certificateUrl": "assets/documents/certificate_jpmorgan.pdf",
-      "order": 2
+      "order": 3
     }
   ]
 }
