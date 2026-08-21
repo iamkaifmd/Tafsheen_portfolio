@@ -1,6 +1,100 @@
 /* ==========================================================================
-   NEO-BRUTALIST TAILWIND CUSTOM STYLES
+   NEO-BRUTALIST TAILWIND CUSTOM STYLES & DYNAMIC ANIMATIONS
    ========================================================================== */
+
+/* Top Scroll Progress Indicator */
+#scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0040df, #7000ff, #ffe600, #0040df);
+    background-size: 300% 100%;
+    animation: gradient-shift 4s ease infinite;
+    z-index: 9999;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating animation for badges & graphics */
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+    animation: float 4s ease-in-out 2s infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Pulse Glow & Shimmer Effects */
+.pulse-glow {
+    animation: pulse-glow 3s infinite alternate;
+}
+
+@keyframes pulse-glow {
+    0% {
+        box-shadow: 0 0 8px rgba(0, 64, 223, 0.2), 4px 4px 0px 0px #191c1e;
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(0, 64, 223, 0.6), 6px 6px 0px 0px #191c1e;
+    }
+}
+
+/* Card Hover Spring & Lift */
+.neo-card {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease !important;
+    will-change: transform, box-shadow;
+}
+
+.neo-card:hover {
+    transform: translateY(-6px) scale(1.015) !important;
+    box-shadow: 10px 10px 0px 0px #191c1e, 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.dark .neo-card:hover {
+    box-shadow: 10px 10px 0px 0px #f3f4f6, 0 15px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Image Zoom on Card Hover */
+.neo-card:hover img {
+    transform: scale(1.08) rotate(0.5deg);
+}
+
+.neo-card img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Button Micro-Interactions */
+.btn-animate {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-animate:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 6px 6px 0px 0px #191c1e;
+}
+
+.dark .btn-animate:hover {
+    box-shadow: 6px 6px 0px 0px #f3f4f6;
+}
+
+.btn-animate:active {
+    transform: translateY(2px) scale(0.98);
+    box-shadow: 2px 2px 0px 0px #191c1e;
+}
 
 /* PDF Viewer Modal Container Overlay */
 .pdf-modal {
