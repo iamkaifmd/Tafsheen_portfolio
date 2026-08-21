@@ -370,21 +370,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         internships.forEach(intern => {
             const card = document.createElement('div');
-            card.className = "neo-card neumorphic-base brutalist-border bg-surface p-6 rounded-xl transition-all duration-300 flex flex-col justify-between";
+            card.className = "neo-card neumorphic-base brutalist-border bg-surface rounded-xl overflow-hidden transition-all duration-300 flex flex-col justify-between";
             card.innerHTML = `
                 <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="material-symbols-outlined text-primary text-4xl">work_history</span>
-                        <span class="font-label-md text-label-md uppercase bg-secondary-container px-3 py-1 brutalist-border">${escapeHtml(intern.period)}</span>
+                    ${intern.imageUrl ? `
+                    <div class="h-48 w-full overflow-hidden border-b-3 border-on-surface bg-surface-container">
+                        <img src="${escapeHtml(intern.imageUrl)}" alt="${escapeHtml(intern.role)}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
                     </div>
-                    <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">${escapeHtml(intern.role)}</h3>
-                    <p class="font-body-md text-on-surface-variant font-bold mb-2">${escapeHtml(intern.company)}</p>
-                    <p class="font-body-md text-on-surface-variant mb-6">${escapeHtml(intern.description)}</p>
+                    ` : ''}
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="material-symbols-outlined text-primary text-4xl">work_history</span>
+                            <span class="font-label-md text-label-md uppercase bg-secondary-container px-3 py-1 brutalist-border">${escapeHtml(intern.period)}</span>
+                        </div>
+                        <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">${escapeHtml(intern.role)}</h3>
+                        <p class="font-body-md text-on-surface-variant font-bold mb-2">${escapeHtml(intern.company)}</p>
+                        <p class="font-body-md text-on-surface-variant mb-6">${escapeHtml(intern.description)}</p>
+                    </div>
                 </div>
-                <a href="${escapeHtml(intern.certificateUrl)}" target="_blank" class="pdf-link px-4 py-2 bg-surface border-3 border-on-surface rounded-lg font-label-md text-center hover:bg-primary hover:text-on-primary transition-colors flex items-center justify-center gap-2 self-start brutalist-shadow-sm" data-title="${escapeHtml(intern.role)} Certificate">
-                    <span class="material-symbols-outlined text-sm">verified_user</span>
-                    <span>VIEW CERTIFICATE</span>
-                </a>
+                <div class="p-6 pt-0">
+                    <a href="${escapeHtml(intern.certificateUrl)}" target="_blank" class="pdf-link px-4 py-2 bg-surface border-3 border-on-surface rounded-lg font-label-md text-center hover:bg-primary hover:text-on-primary transition-colors flex items-center justify-center gap-2 self-start brutalist-shadow-sm" data-title="${escapeHtml(intern.role)} Certificate">
+                        <span class="material-symbols-outlined text-sm">verified_user</span>
+                        <span>VIEW CERTIFICATE</span>
+                    </a>
+                </div>
             `;
             grid.appendChild(card);
         });

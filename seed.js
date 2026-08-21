@@ -83,6 +83,7 @@ const InternshipSchema = new mongoose.Schema({
     period: String,
     description: String,
     certificateUrl: String,
+    imageUrl: String,
     order: Number
 });
 
@@ -189,6 +190,7 @@ const initialInternships = [
         period: "Jun 2026 - Jul 2026",
         description: "Completed an intensive skill development training and internship program on Data Science with Python organized by the Centre for Professional Enhancement (CPE), Lovely Professional University. Gained hands-on expertise in Python programming, data analytics, Exploratory Data Analysis (EDA), and machine learning foundations with Grade 'A' distinction (Certificate No. 490879).",
         certificateUrl: "assets/documents/certificate_lpu_datascience.pdf",
+        imageUrl: "assets/internship_lpu_datascience.png",
         order: 1
     },
     {
@@ -197,6 +199,7 @@ const initialInternships = [
         period: "Mar 2026 - Apr 2026",
         description: "Performed Exploratory Data Analysis (EDA) and Data Cleaning to generate actionable insights. Applied analytical thinking to solve business problems, improving decision-making accuracy. Explored forensic technology concepts such as data validation and anomaly detection.",
         certificateUrl: "assets/documents/certificate_deloitte.pdf",
+        imageUrl: "assets/internship_deloitte.png",
         order: 2
     },
     {
@@ -205,6 +208,7 @@ const initialInternships = [
         period: "Feb 2026 - Apr 2026",
         description: "Configured the project environment and built the backend application architecture. Utilized Apache Kafka for real-time data streaming and event processing. Used H2 database for data storage, query execution, and backend testing. Developed and tested RESTful APIs for application functionality.",
         certificateUrl: "assets/documents/certificate_jpmorgan.pdf",
+        imageUrl: "assets/internship_jpmorgan.png",
         order: 3
     }
 ];

@@ -129,6 +129,7 @@ const InternshipSchema = new mongoose.Schema({
     period: { type: String, required: true },
     description: { type: String, required: true },
     certificateUrl: { type: String, required: true },
+    imageUrl: { type: String, required: false },
     order: { type: Number, default: 0 }
 });
 
